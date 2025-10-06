@@ -1,0 +1,966 @@
+<!doctype html> 
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact - Dmitriy Bridge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0f1020;
+      --bg-2: #0b0c12;
+      --accent: linear-gradient(135deg,#7b61ff 0%, #ff6b9a 55%, #ffb86b 100%);
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.03);
+      --card-shadow: 0 8px 30px rgba(11,10,20,0.6);
+      --text-muted: rgba(255,255,255,0.65);
+      --highlight: rgba(123,97,255,0.12);
+    }
+    /* base */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(123,97,255,0.08), transparent), radial-gradient(800px 400px at 90% 90%, rgba(255,107,154,0.05), transparent),var(--bg-1);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;direction:ltr;text-align:left}
+
+    /* Layout */
+    .site{overflow-y:auto}
+    section{padding:48px 6vw;display:flex;align-items:center;min-height:auto}
+
+    /* Top nav - Updated to match consultation page style */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 6vw;
+      gap:20px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-bottom: 1px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background:var(--accent);
+      box-shadow:0 6px 18px rgba(123,97,255,0.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#0b0c12
+    }
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{
+      padding:8px 16px;
+      border-radius:20px;
+      text-decoration:none;
+      font-weight:500;
+      color:rgba(255,255,255,0.8);
+      display:inline-flex;
+      align-items:center;
+      background: rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    nav a.active{
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color:#fff;
+    }
+
+    /* language switcher */
+    .langs{display:flex;gap:8px}
+    .lang-btn{
+      padding:6px 12px;
+      border-radius:15px;
+      cursor:pointer;
+      font-weight:500;
+      color:rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      transition: all 0.3s ease;
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.2);
+    }
+    .lang-btn.active{
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color:#fff;
+    }
+
+    /* Contact Hero */
+    .contact-hero {
+      text-align: center;
+      padding: 60px 6vw 40px;
+    }
+    .contact-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      letter-spacing: -0.02em;
+    }
+    .contact-hero p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Contact Layout */
+    .contact-container {
+      display: flex;
+      gap: 30px;
+      align-items: stretch;
+      flex-wrap: wrap;
+      padding: 0 6vw 60px;
+    }
+
+    .info-panel {
+      flex: 0 0 320px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .info-section {
+      margin-bottom: 25px;
+    }
+
+    .info-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-section h3::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: linear-gradient(to bottom, #7b61ff, #ff6b9a);
+      border-radius: 2px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 15px;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .contact-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      background: linear-gradient(135deg, #7b61ff, #ff6b9a);
+      border-radius: 50%;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: #fff;
+      min-width: 80px;
+    }
+
+    .contact-value {
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: linear-gradient(135deg, #7b61ff, #ff6b9a);
+      color: #0b0c12;
+      transform: translateY(-2px);
+    }
+
+    /* Form Panel */
+    .form-panel {
+      flex: 1;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: var(--card-shadow);
+      min-width: 300px;
+    }
+
+    .form-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-family: 'Roboto Slab', serif;
+    }
+
+    .form-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.2);
+      color: #fff;
+      font-family: Inter, system-ui;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #7b61ff;
+      box-shadow: 0 0 0 3px rgba(123,97,255,0.2);
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+      accent-color: #7b61ff;
+    }
+
+    .checkbox-label {
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .checkbox-label a {
+      color: #7b61ff;
+      text-decoration: underline;
+    }
+
+    .submit-btn {
+      background: var(--accent);
+      color: #0b0c12;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(123,97,255,0.2);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(123,97,255,0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success Message */
+    .success-message {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      padding: 30px;
+      text-align: center;
+      display: none;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      color: #10b981;
+      margin-bottom: 20px;
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: #10b981;
+    }
+
+    .success-text {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .back-btn {
+      background: var(--glass);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 6vw;
+      background: transparent;
+      display: block;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-text {
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: #7b61ff;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .contact-container {
+        flex-direction: column;
+      }
+      
+      .info-panel {
+        flex: 0 0 auto;
+        max-width: 100%;
+      }
+      
+      .form-panel {
+        flex: 0 0 auto;
+        max-width: 100%;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+      
+      .contact-hero h1 {
+        font-size: 28px;
+      }
+      
+      nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-hero h1 {
+        font-size: 24px;
+      }
+      
+      .contact-hero p {
+        font-size: 14px;
+      }
+      
+      .info-panel, .form-panel {
+        padding: 20px;
+      }
+      
+      .form-title {
+        font-size: 20px;
+      }
+      
+      input, select, textarea {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+      
+      .submit-btn {
+        padding: 12px 24px;
+        font-size: 15px;
+      }
+    }
+
+    /* RTL adjustments */
+    html[dir="rtl"] {
+      direction: rtl;
+      text-align: right;
+    }
+    
+    html[dir="rtl"] .brand {
+      flex-direction: row-reverse;
+    }
+    
+    html[dir="rtl"] .contact-container {
+      flex-direction: row-reverse;
+    }
+    
+    html[dir="rtl"] .contact-item {
+      padding-right: 24px;
+      padding-left: 0;
+    }
+    
+    html[dir="rtl"] .contact-item::before {
+      right: 0;
+      left: auto;
+    }
+    
+    html[dir="rtl"] .form-grid {
+      direction: rtl;
+    }
+    
+    html[dir="rtl"] .checkbox-group {
+      flex-direction: row-reverse;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">DF</div>
+      <div>
+        <div style="font-weight:800" data-i18n="brand.name">Dmitriy Bridge</div>
+        <div style="font-size:12px;color:var(--text-muted)" data-i18n="brand.subtitle">Political & Economic Analyst — Media</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+      <a href="my_services.html" class="nav-link" data-i18n="nav.services">Services</a>
+      <a href="media.html" class="nav-link" data-i18n="nav.media">Media</a>
+      <a href="contact.html" class="nav-link active" data-i18n="nav.contact">Contact</a>
+
+      <div class="langs" aria-label="Language switcher">
+        <div class="lang-btn active" data-lang="en">EN</div>
+        <div class="lang-btn" data-lang="ru">RU</div>
+        <div class="lang-btn" data-lang="ar">AR</div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="site">
+    <section class="contact-hero">
+      <h1 data-i18n="hero.title">Get in Touch</h1>
+      <p data-i18n="hero.subtitle">Send me a message and I'll respond within 24-48 hours. I'm available for consultations, media appearances, and strategic partnerships.</p>
+    </section>
+
+    <div class="contact-container">
+      <div class="info-panel">
+        <div class="info-section">
+          <h3 data-i18n="info.contact">Contact Information</h3>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.email">Email</div>
+            <div class="contact-value">contact@dmitriybridge.com</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.phone">Phone</div>
+            <div class="contact-value">+971 50 123 4567</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.location">Location</div>
+            <div class="contact-value" data-i18n="info.location.value">Dubai, UAE<br>Available for international travel</div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3 data-i18n="info.business">Business Hours</h3>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.mon-fri">Mon-Fri</div>
+            <div class="contact-value" data-i18n="info.hours">9:00 AM - 6:00 PM GST</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.weekend">Weekend</div>
+            <div class="contact-value" data-i18n="info.emergency">Emergency consultations available</div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3 data-i18n="info.social">Social Media</h3>
+          <div class="social-links">
+            <a href="#" class="social-link" data-i18n="social.vk">VK</a>
+            <a href="#" class="social-link" data-i18n="social.ig">IG</a>
+            <a href="#" class="social-link" data-i18n="social.yt">YT</a>
+            <a href="#" class="social-link" data-i18n="social.li">LI</a>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3 data-i18n="info.response">Response Time</h3>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.standard">Standard</div>
+            <div class="contact-value" data-i18n="info.standard.time">24-48 hours</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label" data-i18n="info.urgent">Urgent</div>
+            <div class="contact-value" data-i18n="info.urgent.time">Within 4 hours</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <h2 class="form-title" data-i18n="form.title">Send a Message</h2>
+        <p class="form-subtitle" data-i18n="form.subtitle">Fill out the form below and I'll get back to you as soon as possible. All information is kept confidential.</p>
+        
+        <form id="contactForm" action="https://formspree.io/f/xeokqvnp" method="POST">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name" data-i18n="form.name">Full Name *</label>
+              <input type="text" id="name" name="name" required data-i18n-placeholder="form.name.placeholder">
+            </div>
+            
+            <div class="form-group">
+              <label for="email" data-i18n="form.email">Email Address *</label>
+              <input type="email" id="email" name="email" required data-i18n-placeholder="form.email.placeholder">
+            </div>
+            
+            <div class="form-group">
+              <label for="phone" data-i18n="form.phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" data-i18n-placeholder="form.phone.placeholder">
+            </div>
+            
+            <div class="form-group">
+              <label for="company" data-i18n="form.company">Company/Organization</label>
+              <input type="text" id="company" name="company" data-i18n-placeholder="form.company.placeholder">
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="service" data-i18n="form.service">Service Required *</label>
+              <select id="service" name="service" required>
+                <option value="" data-i18n="form.service.select">Select a service...</option>
+                <option value="consultation" data-i18n="form.service.consultation">Strategic Consulting</option>
+                <option value="analysis" data-i18n="form.service.analysis">Political Analysis</option>
+                <option value="media" data-i18n="form.service.media">Media Appearance</option>
+                <option value="speaking" data-i18n="form.service.speaking">Keynote Speaking</option>
+                <option value="other" data-i18n="form.service.other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group full-width">
+              <label for="message" data-i18n="form.message">Message *</label>
+              <textarea id="message" name="message" required data-i18n-placeholder="form.message.placeholder"></textarea>
+            </div>
+            
+            <div class="form-group full-width">
+              <div class="checkbox-group">
+                <input type="checkbox" id="privacy" name="privacy" required>
+                <label for="privacy" class="checkbox-label" data-i18n-html="form.privacy">I agree to the <a href="#" data-i18n="form.privacy.policy">Privacy Policy</a> and confirm that all information provided is accurate.</label>
+              </div>
+            </div>
+          </div>
+          
+          <button type="submit" class="submit-btn" data-i18n="form.submit">
+            <span data-i18n="form.submit.text">Send Message</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+          <div class="success-icon">✓</div>
+          <h3 class="success-title" data-i18n="success.title">Message Sent Successfully!</h3>
+          <p class="success-text" data-i18n="success.text">Thank you for your message. I'll review your inquiry and get back to you within 24-48 hours.</p>
+          <a href="index.html" class="back-btn" data-i18n="success.back">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-text" data-i18n="footer.copyright">© 2025 Dmitriy Bridge. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="terms.html" class="footer-link" data-i18n="footer.terms">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Translations
+    const translations = {
+      en: {
+        "brand.name": "Dmitriy Bridge",
+        "brand.subtitle": "Political & Economic Analyst — Media",
+        "nav.home": "Home",
+        "nav.services": "Services",
+        "nav.media": "Media",
+        "nav.contact": "Contact",
+        "hero.title": "Get in Touch",
+        "hero.subtitle": "Send me a message and I'll respond within 24-48 hours. I'm available for consultations, media appearances, and strategic partnerships.",
+        "info.contact": "Contact Information",
+        "info.email": "Email",
+        "info.phone": "Phone",
+        "info.location": "Location",
+        "info.location.value": "Dubai, UAE<br>Available for international travel",
+        "info.business": "Business Hours",
+        "info.mon-fri": "Mon-Fri",
+        "info.hours": "9:00 AM - 6:00 PM GST",
+        "info.weekend": "Weekend",
+        "info.emergency": "Emergency consultations available",
+        "info.social": "Social Media",
+        "social.vk": "VK",
+        "social.ig": "IG",
+        "social.yt": "YT",
+        "social.li": "LI",
+        "info.response": "Response Time",
+        "info.standard": "Standard",
+        "info.standard.time": "24-48 hours",
+        "info.urgent": "Urgent",
+        "info.urgent.time": "Within 4 hours",
+        "form.title": "Send a Message",
+        "form.subtitle": "Fill out the form below and I'll get back to you as soon as possible. All information is kept confidential.",
+        "form.name": "Full Name *",
+        "form.name.placeholder": "Your full name",
+        "form.email": "Email Address *",
+        "form.email.placeholder": "you@example.com",
+        "form.phone": "Phone Number",
+        "form.phone.placeholder": "+971 50 123 4567",
+        "form.company": "Company/Organization",
+        "form.company.placeholder": "Your company name",
+        "form.service": "Service Required *",
+        "form.service.select": "Select a service...",
+        "form.service.consultation": "Strategic Consulting",
+        "form.service.analysis": "Political Analysis",
+        "form.service.media": "Media Appearance",
+        "form.service.speaking": "Keynote Speaking",
+        "form.service.other": "Other",
+        "form.message": "Message *",
+        "form.message.placeholder": "Please describe your inquiry in detail...",
+        "form.privacy": "I agree to the <a href=\"#\" data-i18n=\"form.privacy.policy\">Privacy Policy</a> and confirm that all information provided is accurate.",
+        "form.privacy.policy": "Privacy Policy",
+        "form.submit.text": "Send Message",
+        "success.title": "Message Sent Successfully!",
+        "success.text": "Thank you for your message. I'll review your inquiry and get back to you within 24-48 hours.",
+        "success.back": "Back to Home",
+        "footer.copyright": "© 2025 Dmitriy Bridge. All rights reserved.",
+        "footer.privacy": "Privacy Policy",
+        "footer.terms": "Terms of Service"
+      },
+
+      ru: {
+        "brand.name": "Дмитрий Бридж",
+        "brand.subtitle": "Политический и экономический аналитик — Медиа",
+        "nav.home": "Главная",
+        "nav.services": "Услуги",
+        "nav.media": "Медиа",
+        "nav.contact": "Контакты",
+        "hero.title": "Связаться со мной",
+        "hero.subtitle": "Отправьте мне сообщение, и я отвечу в течение 24-48 часов. Я доступен для консультаций, медиа-выступлений и стратегических партнерств.",
+        "info.contact": "Контактная информация",
+        "info.email": "Email",
+        "info.phone": "Телефон",
+        "info.location": "Местоположение",
+        "info.location.value": "Дубай, ОАЭ<br>Доступен для международных поездок",
+        "info.business": "Рабочее время",
+        "info.mon-fri": "Пн-Пт",
+        "info.hours": "9:00 - 18:00 GST",
+        "info.weekend": "Выходные",
+        "info.emergency": "Консультации по экстренным вопросам доступны",
+        "info.social": "Социальные сети",
+        "social.vk": "VK",
+        "social.ig": "IG",
+        "social.yt": "YT",
+        "social.li": "LI",
+        "info.response": "Время ответа",
+        "info.standard": "Стандартное",
+        "info.standard.time": "24-48 часов",
+        "info.urgent": "Срочное",
+        "info.urgent.time": "В течение 4 часов",
+        "form.title": "Отправить сообщение",
+        "form.subtitle": "Заполните форму ниже, и я свяжусь с вами в ближайшее время. Вся информация остается конфиденциальной.",
+        "form.name": "Полное имя *",
+        "form.name.placeholder": "Ваше полное имя",
+        "form.email": "Адрес электронной почты *",
+        "form.email.placeholder": "you@example.com",
+        "form.phone": "Номер телефона",
+        "form.phone.placeholder": "+971 50 123 4567",
+        "form.company": "Компания/Организация",
+        "form.company.placeholder": "Название вашей компании",
+        "form.service": "Требуемая услуга *",
+        "form.service.select": "Выберите услугу...",
+        "form.service.consultation": "Стратегические консультации",
+        "form.service.analysis": "Политический анализ",
+        "form.service.media": "Медиа выступление",
+        "form.service.speaking": "Ключевое выступление",
+        "form.service.other": "Другое",
+        "form.message": "Сообщение *",
+        "form.message.placeholder": "Пожалуйста, подробно опишите ваш запрос...",
+        "form.privacy": "Я согласен с <a href=\"#\" data-i18n=\"form.privacy.policy\">Политикой конфиденциальности</a> и подтверждаю, что вся предоставленная информация точна.",
+        "form.privacy.policy": "Политикой конфиденциальности",
+        "form.submit.text": "Отправить сообщение",
+        "success.title": "Сообщение отправлено успешно!",
+        "success.text": "Спасибо за ваше сообщение. Я рассмотрю ваш запрос и свяжусь с вами в течение 24-48 часов.",
+        "success.back": "Вернуться на главную",
+        "footer.copyright": "© 2025 Дмитрий Бридж. Все права защищены.",
+        "footer.privacy": "Политика конфиденциальности",
+        "footer.terms": "Условия использования"
+      },
+
+      ar: {
+        "brand.name": "ديميتري بريدج",
+        "brand.subtitle": "محلل سياسي واقتصادي — إعلام",
+        "nav.home": "الرئيسية",
+        "nav.services": "خدمات",
+        "nav.media": "الإعلام",
+        "nav.contact": "تواصل",
+        "hero.title": "تواصل معي",
+        "hero.subtitle": "أرسل لي رسالة وسأرد عليك خلال 24-48 ساعة. أنا متاح للاستشارات والظهور الإعلامي والشراكات الاستراتيجية.",
+        "info.contact": "معلومات التواصل",
+        "info.email": "البريد الإلكتروني",
+        "info.phone": "الهاتف",
+        "info.location": "الموقع",
+        "info.location.value": "دبي، الإمارات العربية المتحدة<br>متاح للسفر الدولي",
+        "info.business": "ساعات العمل",
+        "info.mon-fri": "من الإثنين إلى الجمعة",
+        "info.hours": "9:00 صباحاً - 6:00 مساءً بتوقيت الإمارات",
+        "info.weekend": "عطلة نهاية الأسبوع",
+        "info.emergency": "الاستشارات العاجلة متاحة",
+        "info.social": "وسائل التواصل الاجتماعي",
+        "social.vk": "VK",
+        "social.ig": "IG",
+        "social.yt": "YT",
+        "social.li": "LI",
+        "info.response": "وقت الرد",
+        "info.standard": "قياسي",
+        "info.standard.time": "24-48 ساعة",
+        "info.urgent": "عاجل",
+        "info.urgent.time": "خلال 4 ساعات",
+        "form.title": "أرسل رسالة",
+        "form.subtitle": "املأ النموذج أدناه وسأعاود الاتصال بك في أقرب وقت ممكن. تبقى جميع المعلومات سرية.",
+        "form.name": "الاسم الكامل *",
+        "form.name.placeholder": "اسمك الكامل",
+        "form.email": "عنوان البريد الإلكتروني *",
+        "form.email.placeholder": "you@example.com",
+        "form.phone": "رقم الهاتف",
+        "form.phone.placeholder": "+971 50 123 4567",
+        "form.company": "الشركة/المنظمة",
+        "form.company.placeholder": "اسم شركتك",
+        "form.service": "الخدمة المطلوبة *",
+        "form.service.select": "اختر خدمة...",
+        "form.service.consultation": "استشارات استراتيجية",
+        "form.service.analysis": "تحليل سياسي",
+        "form.service.media": "ظهور إعلامي",
+        "form.service.speaking": "محاضرة رئيسية",
+        "form.service.other": "أخرى",
+        "form.message": "الرسالة *",
+        "form.message.placeholder": "يرجى وصف استفسارك بالتفصيل...",
+        "form.privacy": "أوافق على <a href=\"#\" data-i18n=\"form.privacy.policy\">سياسة الخصوصية</a> وأؤكد أن جميع المعلومات المقدمة صحيحة.",
+        "form.privacy.policy": "سياسة الخصوصية",
+        "form.submit.text": "إرسال الرسالة",
+        "success.title": "تم إرسال الرسالة بنجاح!",
+        "success.text": "شكراً لك على رسالتك. سأقوم بمراجعة استفسارك والرد عليك خلال 24-48 ساعة.",
+        "success.back": "العودة إلى الصفحة الرئيسية",
+        "footer.copyright": "© 2025 ديميتري بريدج. جميع الحقوق محفوظة.",
+        "footer.privacy": "سياسة الخصوصية",
+        "footer.terms": "شروط الخدمة"
+      }
+    };
+
+    // Apply language function
+    function applyLanguage(lang) {
+      const map = translations[lang];
+      if (!map) return;
+      
+      // Set HTML attributes
+      document.documentElement.lang = lang === 'ar' ? 'ar' : (lang === 'ru' ? 'ru' : 'en');
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+      // Update text content
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (map[key] !== undefined) {
+          el.textContent = map[key];
+        }
+      });
+
+      // Update placeholder attributes
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        if (map[key] !== undefined) {
+          el.setAttribute('placeholder', map[key]);
+        }
+      });
+
+      // Update HTML content (for links in privacy policy)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        if (map[key] !== undefined) {
+          el.innerHTML = map[key];
+        }
+      });
+
+      // Update select options
+      document.querySelectorAll('option[data-i18n]').forEach(opt => {
+        const key = opt.dataset.i18n;
+        if (map[key] !== undefined) {
+          opt.textContent = map[key];
+        }
+      });
+
+      // Update active language button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
+
+    // Language switcher event listeners
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyLanguage(btn.dataset.lang);
+      });
+    });
+
+    // Initialize with English
+    applyLanguage('en');
+
+    // Form submission handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Basic validation
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const service = document.getElementById('service').value;
+      const message = document.getElementById('message').value.trim();
+      const privacy = document.getElementById('privacy').checked;
+      
+      if (!name || !email || !service || !message || !privacy) {
+        const lang = document.documentElement.lang || 'en';
+        const errorMsg = lang === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة وقبول سياسة الخصوصية.' : 
+                        lang === 'ru' ? 'Пожалуйста, заполните все обязательные поля и примите политику конфиденциальности.' : 
+                        'Please fill in all required fields and accept the privacy policy.';
+        alert(errorMsg);
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = document.querySelector('.submit-btn');
+      const originalText = submitBtn.querySelector('span').textContent;
+      submitBtn.disabled = true;
+      submitBtn.querySelector('span').textContent = 'Sending...';
+      
+      // Create FormData object
+      const formData = new FormData(this);
+      
+      // Send data to Formspree
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Show success message
+          document.getElementById('contactForm').style.display = 'none';
+          document.getElementById('successMessage').style.display = 'block';
+        } else {
+          throw new Error('Network response was not ok.');
+        }
+      })
+      .catch(error => {
+        const lang = document.documentElement.lang || 'en';
+        const errorMsg = lang === 'ar' ? 'حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.' : 
+                        lang === 'ru' ? 'Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте еще раз.' : 
+                        'An error occurred while sending the message. Please try again.';
+        alert(errorMsg);
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.querySelector('span').textContent = originalText;
+      });
+    });
+  </script>
+</body>
+</html>

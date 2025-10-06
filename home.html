@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Дмитрий — Аналитик | Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-1: #0f1020;
+      --bg-2: #0b0c12;
+      --accent: linear-gradient(135deg,#7b61ff 0%, #ff6b9a 55%, #ffb86b 100%);
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.03);
+      --card-shadow: 0 8px 30px rgba(11,10,20,0.6);
+      --text-muted: rgba(255,255,255,0.65);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(123,97,255,0.08), transparent), radial-gradient(800px 400px at 90% 90%, rgba(255,107,154,0.05), transparent),var(--bg-1);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff}
+
+    /* Layout: fullpage with scroll snap (4 sections) */
+    .site{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory}
+    section{min-height:100vh;padding:48px 6vw;scroll-snap-align:start;display:flex;align-items:center}
+
+    /* Top nav */
+    header{position:fixed;left:0;right:0;top:12px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:10px 6vw}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:44px;height:44px;border-radius:10px;background:var(--accent);box-shadow:0 6px 18px rgba(123,97,255,0.18);display:flex;align-items:center;justify-content:center;font-weight:700;color:#0b0c12}
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:600;color:var(--text-muted)}
+    nav a.active{background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));color:#fff}
+
+    /* language switcher */
+    .langs{display:flex;gap:8px}
+    .lang-btn{background:var(--glass);padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:600}
+
+    /* hero */
+    .hero{gap:48px}
+    .hero-grid{display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start}
+    .intro{max-width:820px}
+    h1{font-size:36px;margin:0 0 10px;font-weight:800;letter-spacing:-0.02em}
+    .roles{display:flex;gap:10px;margin-bottom:18px}
+    .pill{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 12px;border-radius:12px;font-weight:700;color:var(--text-muted);border:1px solid rgba(255,255,255,0.02)}
+    p.lead{color:var(--text-muted);line-height:1.6}
+
+    .ctas{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:12px;border:0;cursor:pointer;font-weight:700}
+    .btn.primary{background:var(--accent);color:#0b0c12;box-shadow:0 10px 30px rgba(123,97,255,0.12)}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text-muted)}
+
+    /* profile card */
+    .profile{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:18px;box-shadow:var(--card-shadow);width:100%;max-width:380px}
+    .profile img{width:100%;height:480px;object-fit:cover;border-radius:12px;background:#111}
+    .stats{display:flex;gap:8px;margin-top:12px}
+    .stat{background:var(--glass);padding:8px;border-radius:10px;font-weight:700;color:var(--text-muted);flex:1;text-align:center}
+
+    /* section 2 services */
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%}
+    .service{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px;box-shadow:var(--card-shadow);min-height:160px}
+    .service h3{margin:0 0 10px}
+    .service p{color:var(--text-muted);line-height:1.5}
+
+    /* gallery row */
+    .gallery{display:flex;gap:14px;margin-top:24px}
+    .thumb{flex:1;border-radius:12px;overflow:hidden;min-height:110px;box-shadow:0 8px 20px rgba(0,0,0,0.6)}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+
+    /* contact / form */
+    .contact{display:flex;gap:30px;align-items:stretch}
+    .contact .left{flex:1}
+    form{width:420px;background:var(--glass-2);padding:20px;border-radius:12px;box-shadow:var(--card-shadow)}
+    label{display:block;margin:8px 0 6px;color:var(--text-muted);font-size:13px}
+    input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff}
+    textarea{min-height:120px}
+    .submit{margin-top:12px}
+
+    /* footer */
+    footer{padding:40px 6vw;background:transparent}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr;}
+      .profile img{height:320px}
+      .services{grid-template-columns:1fr}
+      nav{display:none}
+    }
+
+    /* small interactive helpers */
+    .fade-up{opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.2,.9,.3,1)}
+    .in-view{opacity:1;transform:none}
+
+    /* section headings */
+    .section-title{font-family:Roboto Slab,serif;font-size:22px;margin-bottom:12px}
+
+    /* indicator (dots) */
+    .dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:50}
+    .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.08);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .dot.active{background:var(--accent);box-shadow:0 6px 18px rgba(123,97,255,0.12)}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">DF</div>
+      <div>
+        <div style="font-weight:800">Дмитрий Бридж</div>
+        <div style="font-size:12px;color:var(--text-muted)">Political & Economic Analyst — Media</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#s1" class="nav-link active" data-index="0">Home</a>
+      <a href="#s2" class="nav-link" data-index="1">Services</a>
+      <a href="#s3" class="nav-link" data-index="2">Media</a>
+      <a href="#s4" class="nav-link" data-index="3">Contact</a>
+      <div class="langs">
+        <div class="lang-btn" data-lang="ru">RU</div>
+        <div class="lang-btn" data-lang="en">EN</div>
+        <div class="lang-btn" data-lang="ar">AR</div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="dots" aria-hidden>
+    <div class="dot active" data-index="0"></div>
+    <div class="dot" data-index="1"></div>
+    <div class="dot" data-index="2"></div>
+    <div class="dot" data-index="3"></div>
+  </div>
+
+  <main class="site" id="site">
+    <!-- SECTION 1 - HERO -->
+    <section id="s1">
+      <div class="hero-grid">
+        <div class="intro">
+          <div class="roles">
+            <div class="pill">Media Appearances</div>
+            <div class="pill">Advisory to Gov & NGOs</div>
+            <div class="pill">Keynote Speaker</div>
+          </div>
+          <h1 class="fade-up in-view" data-key="title">Дмитрий Бридж — Аналитик и Медиа</h1>
+          <p class="lead fade-up in-view" data-key="lead">أنا محلل سياسي واقتصادي وأعمل مع وسائل إعلام وحكومات لبناء استراتيجيات اتصال وتحليل سياسات. أقدم تحليلات دقيقة للقيادات والمؤسسات.</p>
+
+          <div class="ctas">
+            <button class="btn primary">اطلب استشارة</button>
+            <button class="btn ghost">سيرتي الذاتية</button>
+            <button class="btn ghost">خدماتي</button>
+            <button class="btn ghost">ظهور اعلامي</button>
+          </div>
+
+          <div style="margin-top:18px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap">
+            <div class="pill">+10 سنوات خبرة</div>
+            <div class="pill">التحليل: الشرق الأوسط - أوروبا</div>
+            <div class="pill">لغات: RU / EN / AR</div>
+          </div>
+        </div>
+
+        <aside class="profile">
+          <!-- placeholder image: replace assets/photo1.jpg with your real image -->
+          <img src="photo1.jpg" alt="Profile photo — replace me">
+          <div class="stats">
+            <div class="stat">محاضرات <br><strong>120+</strong></div>
+            <div class="stat">مؤسسات <br><strong>50+</strong></div>
+            <div class="stat">تحليلات <br><strong>300+</strong></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 2 - SERVICES -->
+    <section id="s2" style="background:linear-gradient(180deg,transparent, rgba(255,255,255,0.01))">
+      <div style="width:100%">
+        <div class="section-title">خدماتي / Services</div>
+        <div class="services">
+          <div class="service">
+            <h3>تحليل سياسي عميق</h3>
+            <p>تقارير مخصصة لصناع القرار عن توجهات السياسة الداخلية والخارجية، تقييم المخاطر والسيناريوهات.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn ghost">اطلب تقرير</button>
+              <button class="btn ghost">نماذج</button>
+            </div>
+          </div>
+          <div class="service">
+            <h3>الظهور الاعلامي</h3>
+            <p>مقابلات، تعليق، تحليل مباشر للقنوات الإخبارية والإذاعات والبودكاست.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn ghost">اطلب ظهور</button>
+              <button class="btn ghost">مقاطع</button>
+            </div>
+          </div>
+          <div class="service">
+            <h3>استشارات استراتيجية</h3>
+            <p>تصميم استراتيجيات اتصال وإدارة أزمات للمؤسسات الحكومية والخاصة ووسائل الإعلام.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn ghost">اطلب استشارة</button>
+              <button class="btn ghost">عرض خدمات</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="thumb"><img src="assets/photo1.jpg" alt="thumb"></div>
+          <div class="thumb"><img src="assets/photo1.jpg" alt="thumb"></div>
+          <div class="thumb"><img src="assets/photo1.jpg" alt="thumb"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 - MEDIA / PORTFOLIO -->
+    <section id="s3">
+      <div style="width:100%">
+        <div class="section-title">ظهور في الإعلام — Media</div>
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:12px">
+          <div style="flex:1;min-width:260px;background:var(--glass);padding:14px;border-radius:12px">
+            <strong>ندوة: مستقبل المنطقة</strong>
+            <p style="color:var(--text-muted)">مداخلة حول تأثيرات السياسات الاقتصادية على الاستقرار السياسي.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn ghost">مشاهدة</button>
+              <button class="btn ghost">تفاصيل</button>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:260px;background:var(--glass);padding:14px;border-radius:12px">
+            <strong>مقال تحليلي — مجلة اقتصادية</strong>
+            <p style="color:var(--text-muted)">نشر تحليلات مُعمّقة حول سلاسل الإمداد والضغوط الدولية.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn ghost">قراءة</button>
+              <button class="btn ghost">تحميل PDF</button>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:260px;background:var(--glass);padding:14px;border-radius:12px">
+            <strong>بودكاست — لقاء</strong>
+            <p style="color:var(--text-muted)">مقابلة مطولة عن دور الإعلام في تشكيل الرأي العام.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn ghost">استمع</button>
+              <button class="btn ghost">تفاصيل الحلقة</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 - CONTACT -->
+    <section id="s4" style="background:linear-gradient(180deg, rgba(11,10,20,0.65), transparent)">
+      <div class="contact">
+        <div class="left">
+          <div class="section-title">تواصل معي</div>
+          <p style="color:var(--text-muted);max-width:680px">أرسل لنا ملخص المشروع أو موعد الظهور المطلوب وسأرد خلال 48 ساعة. يمكنك أيضاً طلب عرض خدمات أو ملف التعريف الكامل.</p>
+
+          <div style="display:flex;gap:12px;margin-top:16px">
+            <button class="btn primary">اطلب استشارة</button>
+            <button class="btn ghost">تحميل سيرتي</button>
+            <button class="btn ghost">مواعيد متاحة</button>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <label for="name">الاسم</label>
+          <input id="name" name="name" placeholder="الاسم الكامل" required>
+          <label for="email">الايميل</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          <label for="service">الخدمة المطلوبة</label>
+          <select id="service">
+            <option>تحليل سياسي</option>
+            <option>ظهور اعلامي</option>
+            <option>استشارة استراتيجية</option>
+          </select>
+          <label for="msg">نص الرسالة</label>
+          <textarea id="msg" name="msg" placeholder="اكتب نبذة قصيرة عن المشروع"></textarea>
+          <div class="submit">
+            <button type="submit" class="btn primary">أرسل</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="color:var(--text-muted)">© 2025 Дмитрий — Analyst. All rights reserved.</div>
+        <div style="display:flex;gap:10px">
+          <a href="#s1" style="color:var(--text-muted);text-decoration:none">vk</a>
+          <a href="#s1" style="color:var(--text-muted);text-decoration:none">instagram</a>
+          <a href="#s1" style="color:var(--text-muted);text-decoration:none">youtube</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // smooth nav + dots
+    const links = document.querySelectorAll('.nav-link');
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section');
+    const site = document.getElementById('site');
+
+    function setActive(idx){
+      links.forEach(a=>a.classList.toggle('active', +a.dataset.index===idx));
+      dots.forEach(d=>d.classList.toggle('active', +d.dataset.index===idx));
+    }
+
+    links.forEach(a=>a.addEventListener('click', e=>{e.preventDefault();const id=a.getAttribute('href').slice(1);document.getElementById(id).scrollIntoView({behavior:'smooth'});}))
+    dots.forEach(d=>d.addEventListener('click', ()=>document.querySelectorAll('section')[+d.dataset.index].scrollIntoView({behavior:'smooth'})) )
+
+    // highlight on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){
+          const idx=[...sections].indexOf(ent.target);
+          setActive(idx);
+          ent.target.querySelectorAll('.fade-up').forEach(el=>el.classList.add('in-view'));
+        }
+      })
+    },{threshold:0.45})
+    sections.forEach(s=>io.observe(s));
+
+    // language switcher (simple dictionary)
+    const texts = {
+      en:{title:'Dmitriy Bridge — Analyst & Media',lead:'Political and economic analyst. I provide briefs, commentary and strategic consulting for media and institutions.'},
+      ru:{title:'Дмитрий Бридж — Аналитик и Медиа',lead:'Политический и экономический аналитик. Готовлю отчеты, комментарии и стратегические консультации.'},
+      ar:{title:'Дмитрий Бридж — محلل إعلامي',lead:'محلل سياسي واقتصادي أقدم تقارير وتعليقات واستشارات استراتيجية لوسائل الإعلام والمؤسسات.'}
+    }
+    document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>{
+      const lang = btn.dataset.lang;document.querySelectorAll('[data-key]').forEach(el=>el.textContent = texts[lang][el.dataset.key]);
+    }))
+
+    // contact form handler (demo)
+    document.getElementById('contactForm').addEventListener('submit', e=>{
+      e.preventDefault();alert('تم إرسال النموذج (نسخة تجريبية).');
+      e.target.reset();
+    })
+
+    // keyboard: arrows to navigate sections
+    window.addEventListener('keydown', e=>{
+      const idx=[...sections].findIndex(s=>s.getBoundingClientRect().top>=-60 && s.getBoundingClientRect().top<window.innerHeight/2);
+      if(e.key==='ArrowDown'){
+        const next = Math.min(sections.length-1, idx+1); sections[next].scrollIntoView({behavior:'smooth'});
+      } else if(e.key==='ArrowUp'){
+        const prev = Math.max(0, idx-1); sections[prev].scrollIntoView({behavior:'smooth'});
+      }
+    })
+  </script>
+</body>
+</html>

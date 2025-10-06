@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>اسم الإعلامي | محلل سياسي واقتصادي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@600;700&display=swap" rel="stylesheet" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --bg-start: #181c2f;
+      --bg-end: #232946;
+      --text: #ffffff;
+      --text-soft: #bfc3d9;
+      --primary: #a992f7;
+      --accent: #f9c846;
+      --card: #232946;
+      --shadow: #0003;
+    }
+
+    html, body {
+      margin: 0; padding: 0;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      color: var(--text);
+      font-family: "Cairo", "Inter", sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Scroll Snap: أربع نزلات */
+    main {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+    section {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      padding: 64px 8vw;
+      display: grid;
+      align-content: center;
+      gap: 18px;
+    }
+
+    /* Navbar */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 8vw;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, #1b2036cc 0%, #1b203600 100%);
+      border-bottom: 1px solid #ffffff14;
+      z-index: 1000;
+    }
+    .brand {
+      font-weight: 700; letter-spacing: 0.3px;
+      color: var(--primary);
+    }
+    .nav-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+
+    /* Buttons */
+    .btn {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: #1a1e2f;
+      border: none; border-radius: 24px;
+      padding: 12px 20px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 6px 18px var(--shadow);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 26px #0004; filter: brightness(1.03); }
+    .btn.outline {
+      background: transparent; color: var(--primary);
+      border: 1px solid var(--primary);
+      box-shadow: none;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid; grid-template-columns: 160px auto; gap: 22px; align-items: center;
+    }
+    .hero .img {
+      width: 160px; height: 160px; border-radius: 50%;
+      border: 4px solid var(--primary); object-fit: cover;
+      box-shadow: 0 10px 24px #0005;
+    }
+    h1 { margin: 0; color: var(--primary); font-size: 2.1rem; }
+    p.lead { margin: 0; color: var(--text-soft); font-size: 1.05rem; }
+
+    /* Cards */
+    .grid {
+      display: grid; gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 8px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 18px; padding: 18px;
+      box-shadow: 0 8px 22px var(--shadow);
+      border: 1px solid #ffffff12;
+    }
+    .card h3 { margin: 0 0 8px; color: var(--accent); font-size: 1.1rem; }
+    .card p { margin: 0 0 14px; color: var(--text-soft); font-size: 0.95rem; }
+
+    .stats { display: flex; gap: 18px; flex-wrap: wrap; color: var(--text-soft); margin-top: 14px; }
+    .stats .chip {
+      border: 1px dashed #ffffff22; border-radius: 14px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    /* Media links & gallery */
+    .media-card a { text-decoration: none; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-top: 10px; }
+    .gallery img { width: 100%; height: 110px; object-fit: cover; border-radius: 10px; border: 2px solid var(--primary); }
+
+    /* Contact form */
+    .form { max-width: 480px; display: grid; gap: 14px; }
+    .form input, .form textarea {
+      background: #1d2238; border: 1px solid #ffffff22; color: var(--text);
+      padding: 12px; border-radius: 10px; font-size: 0.98rem;
+    }
+    .socials { display: flex; gap: 16px; margin-top: 8px; }
+    .socials a { color: var(--accent); font-size: 1.4rem; }
+    .socials a:hover { color: var(--primary); }
+
+    /* Language pill */
+    .lang-switch { display: inline-flex; gap: 6px; align-items: center; }
+    .lang-switch button { background: transparent; border: 1px solid #ffffff24; color: var(--text-soft); padding: 8px 12px; border-radius: 16px; cursor: pointer; }
+    .lang-switch button.active { color: var(--accent); border-color: var(--accent); }
+
+    /* Responsive */
+    @media (max-width: 740px) {
+      .hero { grid-template-columns: 120px auto; }
+      .nav-actions .btn { padding: 10px 14px; }
+      section { padding: 86px 6vw 54px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="nav">
+    <div class="brand" data-i18n="brand">اسم الإعلامي</div>
+    <div class="nav-actions">
+      <button class="btn outline" onclick="scrollToId('home')" data-i18n="nav_home">الرئيسية</button>
+      <button class="btn outline" onclick="scrollToId('services')" data-i18n="nav_services">الخدمات</button>
+      <button class="btn outline" onclick="scrollToId('media')" data-i18n="nav_media">الأعمال</button>
+      <button class="btn" onclick="scrollToId('contact')" data-i18n="nav_contact">احجز استشارة</button>
+
+      <div class="lang-switch">
+        <button onclick="setLang('ar')" id="lang-ar">AR</button>
+        <button onclick="setLang('en')" id="lang-en">EN</button>
+        <button onclick="setLang('ru')" id="lang-ru">RU</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Section 1: Landing -->
+    <section id="home">
+      <div class="hero">
+        <img src="img1.jpg" alt="صورة الإعلامي" class="img" />
+        <div>
+          <h1 data-i18n="hero_title">محلل سياسي واقتصادي | إعلامي</h1>
+          <p class="lead" data-i18n="hero_desc">رؤية دقيقة، تحليل موثوق، حضور إعلامي مؤثر.</p>
+          <div style="margin-top:12px;">
+            <button class="btn" onclick="scrollToId('contact')" data-i18n="cta_consult">احجز استشارة</button>
+            <button class="btn outline" onclick="scrollToId('services')" data-i18n="cta_services">الخدمات</button>
+            <button class="btn outline" onclick="scrollToId('media')" data-i18n="cta_media">الأعمال الإعلامية</button>
+            <button class="btn outline" onclick="scrollToId('contact')" data-i18n="cta_contact">تواصل معي</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Services -->
+    <section id="services">
+      <h1 data-i18n="services_title">الخدمات والتحليل</h1>
+      <div class="grid">
+        <div class="card">
+          <h3><i class="fas fa-landmark"></i> <span data-i18n="svc_political">تحليل سياسي</span></h3>
+          <p data-i18n="svc_political_desc">تحليلات معمّقة للأحداث الإقليمية والدولية وصياغة رؤى قابلة للتنفيذ.</p>
+          <button class="btn outline" data-i18n="btn_learn">اعرف المزيد</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-coins"></i> <span data-i18n="svc_econ">تحليل اقتصادي</span></h3>
+          <p data-i18n="svc_econ_desc">تقارير سوقية وتقييمات مخاطر مخصصة للإعلام والشركات.</p>
+          <button class="btn outline" data-i18n="btn_learn">اعرف المزيد</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-microphone"></i> <span data-i18n="svc_media">تدريب إعلامي</span></h3>
+          <p data-i18n="svc_media_desc">تحضير الظهور الإعلامي وصياغة الرسائل المؤثرة وإدارة المقابلات.</p>
+          <button class="btn outline" data-i18n="btn_learn">اعرف المزيد</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-handshake"></i> <span data-i18n="svc_pr">علاقات عامة واستراتيجية</span></h3>
+          <p data-i18n="svc_pr_desc">بناء سمعة إعلامية وشراكات رفيعة تعزّز النفوذ والتأثير.</p>
+          <button class="btn outline" data-i18n="btn_learn">اعرف المزيد</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="chip"><i class="fas fa-briefcase"></i> <span data-i18n="stat_experience">خبرة: 10+ سنوات</span></div>
+        <div class="chip"><i class="fas fa-language"></i> <span data-i18n="stat_langs">اللغات: العربية، الإنجليزية، الروسية</span></div>
+        <div class="chip"><i class="fas fa-tv"></i> <span data-i18n="stat_appear">ظهور في: الجزيرة، BBC، العربية</span></div>
+      </div>
+    </section>
+
+    <!-- Section 3: Media & Gallery -->
+    <section id="media">
+      <h1 data-i18n="media_title">الأعمال والظهور الإعلامي</h1>
+      <div class="grid">
+        <div class="card media-card">
+          <h3><i class="fab fa-youtube"></i> <span data-i18n="media1">مقابلة على الجزيرة</span></h3>
+          <a href="#" class="btn" data-i18n="btn_watch">شاهد الآن</a>
+        </div>
+        <div class="card media-card">
+          <h3><i class="fas fa-newspaper"></i> <span data-i18n="media2">مقال رأي – الاقتصاد الإقليمي</span></h3>
+          <a href="#" class="btn" data-i18n="btn_read">اقرأ</a>
+        </div>
+        <div class="card media-card">
+          <h3><i class="fas fa-podcast"></i> <span data-i18n="media3">بودكاست – قراءة المشهد</span></h3>
+          <a href="#" class="btn" data-i18n="btn_listen">استمع</a>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <img src="img1.jpg" alt="صورة 1">
+        <img src="img1.jpg" alt="صورة 2">
+        <img src="img1.jpg" alt="صورة 3">
+        <img src="img1.jpg" alt="صورة 4">
+      </div>
+    </section>
+
+    <!-- Section 4: Contact -->
+    <section id="contact">
+      <h1 data-i18n="contact_title">تواصل معي</h1>
+      <p class="lead" data-i18n="contact_desc">أرسل نبذة سريعة عن طلبك وسأقترح الصيغة والموعد الأنسب.</p>
+
+      <form class="form" onsubmit="event.preventDefault(); alert(getText('form_sent')); ">
+        <input type="text" placeholder="الاسم" data-placeholder="name_ph">
+        <input type="email" placeholder="البريد الإلكتروني" data-placeholder="email_ph">
+        <textarea rows="4" placeholder="رسالتك" data-placeholder="msg_ph"></textarea>
+        <button class="btn" type="submit" data-i18n="btn_send">إرسال</button>
+      </form>
+
+      <div class="socials">
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="#" title="X"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // i18n dictionary
+    const dict = {
+      ar: {
+        brand: "اسم الإعلامي",
+        nav_home: "الرئيسية", nav_services: "الخدمات", nav_media: "الأعمال", nav_contact: "احجز استشارة",
+        hero_title: "محلل سياسي واقتصادي | إعلامي",
+        hero_desc: "رؤية دقيقة، تحليل موثوق، حضور إعلامي مؤثر.",
+        cta_consult: "احجز استشارة", cta_services: "الخدمات", cta_media: "الأعمال الإعلامية", cta_contact: "تواصل معي",
+
+        services_title: "الخدمات والتحليل",
+        svc_political: "تحليل سياسي",
+        svc_political_desc: "تحليلات معمّقة للأحداث الإقليمية والدولية وصياغة رؤى قابلة للتنفيذ.",
+        svc_econ: "تحليل اقتصادي",
+        svc_econ_desc: "تقارير سوقية وتقييمات مخاطر مخصصة للإعلام والشركات.",
+        svc_media: "تدريب إعلامي",
+        svc_media_desc: "تحضير الظهور الإعلامي وصياغة الرسائل المؤثرة وإدارة المقابلات.",
+        svc_pr: "علاقات عامة واستراتيجية",
+        svc_pr_desc: "بناء سمعة إعلامية وشراكات رفيعة تعزّز النفوذ والتأثير.",
+        btn_learn: "اعرف المزيد",
+        stat_experience: "خبرة: 10+ سنوات",
+        stat_langs: "اللغات: العربية، الإنجليزية، الروسية",
+        stat_appear: "ظهور في: الجزيرة، BBC، العربية",
+
+        media_title: "الأعمال والظهور الإعلامي",
+        media1: "مقابلة على الجزيرة",
+        media2: "مقال رأي – الاقتصاد الإقليمي",
+        media3: "بودكاست – قراءة المشهد",
+        btn_watch: "شاهد الآن",
+        btn_read: "اقرأ",
+        btn_listen: "استمع",
+
+        contact_title: "تواصل معي",
+        contact_desc: "أرسل نبذة سريعة عن طلبك وسأقترح الصيغة والموعد الأنسب.",
+        btn_send: "إرسال",
+        form_sent: "تم الإرسال بنجاح!",
+        name_ph: "الاسم",
+        email_ph: "البريد الإلكتروني",
+        msg_ph: "رسالتك"
+      },
+      en: {
+        brand: "Analyst Name",
+        nav_home: "Home", nav_services: "Services", nav_media: "Media", nav_contact: "Book Consult",
+        hero_title: "Political & Economic Analyst | Media",
+        hero_desc: "Accurate insight. Trusted analysis. Impactful presence.",
+        cta_consult: "Book Consultation", cta_services: "Services", cta_media: "Media Work", cta_contact: "Contact Me",
+
+        services_title: "Services & Analysis",
+        svc_political: "Political Analysis",
+        svc_political_desc: "In-depth regional and global insights with actionable perspectives.",
+        svc_econ: "Economic Analysis",
+        svc_econ_desc: "Market reports & risk assessments tailored for media and businesses.",
+        svc_media: "Media Coaching",
+        svc_media_desc: "On-air preparation, messaging, and interview management.",
+        svc_pr: "Public Relations & Strategy",
+        svc_pr_desc: "Reputation building and high-level partnerships to amplify influence.",
+        btn_learn: "Learn More",
+        stat_experience: "Experience: 10+ years",
+        stat_langs: "Languages: Arabic, English, Russian",
+        stat_appear: "Featured on: Al Jazeera, BBC, Al Arabiya",
+
+        media_title: "Work & Media Appearances",
+        media1: "Interview on Al Jazeera",
+        media2: "Op-Ed – Regional Economy",
+        media3: "Podcast – Reading the Scene",
+        btn_watch: "Watch Now",
+        btn_read: "Read",
+        btn_listen: "Listen",
+
+        contact_title: "Contact",
+        contact_desc: "Send a quick brief; I’ll propose format and timing.",
+        btn_send: "Send",
+        form_sent: "Sent successfully!",
+        name_ph: "Name",
+        email_ph: "Email",
+        msg_ph: "Your message"
+      },
+      ru: {
+        brand: "Имя аналитика",
+        nav_home: "Главная", nav_services: "Услуги", nav_media: "Медиа", nav_contact: "Консультация",
+        hero_title: "Политический и экономический аналитик | Медиа",
+        hero_desc: "Точная экспертиза. Надёжный анализ. Влиятельное присутствие.",
+        cta_consult: "Записаться на консультацию", cta_services: "Услуги", cta_media: "Медиа-проекты", cta_contact: "Связаться",
+
+        services_title: "Услуги и аналитика",
+        svc_political: "Политическая аналитика",
+        svc_political_desc: "Глубокие региональные и глобальные обзоры с практическими выводами.",
+        svc_econ: "Экономическая аналитика",
+        svc_econ_desc: "Рыночные отчёты и оценка рисков для медиа и компаний.",
+        svc_media: "Медиа-тренинг",
+        svc_media_desc: "Подготовка к эфиру, формулировка сообщений и управление интервью.",
+        svc_pr: "PR и стратегия",
+        svc_pr_desc: "Построение репутации и партнёрств высокого уровня.",
+        btn_learn: "Подробнее",
+        stat_experience: "Опыт: 10+ лет",
+        stat_langs: "Языки: арабский, английский, русский",
+        stat_appear: "Выступления: Al Jazeera, BBC, Al Arabiya",
+
+        media_title: "Работы и медиа-выступления",
+        media1: "Интервью на Al Jazeera",
+        media2: "Статья – Региональная экономика",
+        media3: "Подкаст – Анализ ситуации",
+        btn_watch: "Смотреть",
+        btn_read: "Читать",
+        btn_listen: "Слушать",
+
+        contact_title: "Связаться",
+        contact_desc: "Отправьте краткое описание запроса — предложу формат и время.",
+        btn_send: "Отправить",
+        form_sent: "Отправлено!",
+        name_ph: "Имя",
+        email_ph: "Email",
+        msg_ph: "Сообщение"
+      }
+    };
+
+    function getText(key){ return dict[currentLang]?.[key] || key; }
+
+    // Language state
+    let currentLang = 'ar';
+    function setLang(lang) {
+      currentLang = lang;
+      // Direction toggle
+      const rtl = lang === 'ar';
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('dir', rtl ? 'rtl' : 'ltr');
+
+      // Update text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        el.textContent = getText(k);
+      });
+
+      // Update placeholders
+      document.querySelectorAll('[data-placeholder]').forEach(el => {
+        const k = el.getAttribute('data-placeholder');
+        el.placeholder = getText(k);
+      });
+
+      // Active state on lang buttons
+      ['ar','en','ru'].forEach(code => {
+        const btn = document.getElementById(`lang-${code}`);
+        if(btn) btn.classList.toggle('active', code === lang);
+      });
+    }
+
+    function scrollToId(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Init
+    setLang('ar');
+  </script>
+</body>
+</html>

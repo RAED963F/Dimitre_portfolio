@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Consultation - Dmitriy Bridge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #0f172a;
+            --accent-color: #8b5cf6;
+            --light-color: #f8fafc;
+            --dark-color: #0f172a;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-start: #667eea;
+            --gradient-end: #764ba2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .header {
+            background: #0f172a;
+            padding: 20px 0;
+            border-bottom: 1px solid #1e293b;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .logo-subtext {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #1e293b;
+            color: #f8fafc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            background: #334155;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .language-switcher {
+            display: flex;
+            gap: 5px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border-radius: 15px;
+            background: #1e293b;
+            color: #f8fafc;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #334155;
+        }
+
+        .consultation-hero {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            text-align: center;
+        }
+
+        .consultation-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .consultation-subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto 60px;
+            background: #1e293b;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #f8fafc;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 15px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            height: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: block;
+            margin: 30px auto 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #0f172a;
+            border: 2px solid #10b981;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background: #0f172a;
+            border: 2px solid #ef4444;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .success-text {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 12px 24px;
+            border: 1px solid #334155;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: #334155;
+            transform: translateY(-2px);
+        }
+
+        /* English Styles */
+        body.en {
+            direction: ltr;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.en .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        body.en .language-switcher {
+            flex-direction: row-reverse;
+        }
+
+        /* Russian Styles */
+        body.ru {
+            direction: ltr;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body.ru .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        body.ru .language-switcher {
+            flex-direction: row-reverse;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .consultation-title {
+                font-size: 2rem;
+            }
+            
+            .consultation-subtitle {
+                font-size: 1rem;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+            
+            .nav-links {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .language-switcher {
+                gap: 5px;
+            }
+            
+            .lang-btn {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .consultation-title {
+                font-size: 1.5rem;
+            }
+            
+            .consultation-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            input, select, textarea {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            
+            .submit-btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav">
+                <div class="logo">
+                    <div class="logo-icon">DF</div>
+                    <div>
+                        <div class="logo-text">Dmitriy Bridge</div>
+                        <div class="logo-subtext">Political & Economic Analyst — Media</div>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="my_services.html" class="nav-link active">Services</a>
+                    <a href="media.html" class="nav-link">Media</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    <div class="language-switcher">
+                        <button class="lang-btn active" data-lang="ar">AR</button>
+                        <button class="lang-btn" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="ru">RU</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="consultation-hero">
+            <div class="container">
+                <h1 class="consultation-title" id="form-title">طلب استشارة</h1>
+                <p class="consultation-subtitle" id="form-subtitle">املأ النموذج أدناه وسأقوم بالرد عليك في أقرب وقت ممكن. جميع المعلومات ستبقى سرية.</p>
+                
+                <div class="form-container">
+                    <div class="error-message" id="error-message">
+                        حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى.
+                    </div>
+                    
+                    <!-- استبدل YOUR_FORM_ID بـ Form ID الخاص بك من Formspree -->
+                    <form id="consultation-form" action="https://formspree.io/f/xeokqvnp" method="POST">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">الاسم الكامل <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">البريد الإلكتروني <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">رقم الهاتف</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="company">الشركة/المنظمة</label>
+                                <input type="text" id="company" name="company">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="service">نوع الخدمة المطلوبة <span class="required">*</span></label>
+                                <select id="service" name="service" required>
+                                    <option value="">اختر نوع الخدمة...</option>
+                                    <option value="strategic">الاستشارات الاستراتيجية</option>
+                                    <option value="missions">البعثات التجارية الدولية</option>
+                                    <option value="analytics">التحليل والبحوث</option>
+                                    <option value="branding">العلامة التجارية والاتصالات</option>
+                                    <option value="startup">دعم الشركات الناشئة والاستثمارات</option>
+                                    <option value="education">المشاريع التعليمية والثقافية</option>
+                                    <option value="individual">المرافقة الفردية</option>
+                                    <option value="other">أخرى</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="message">تفاصيل الطلب <span class="required">*</span></label>
+                                <textarea id="message" name="message" placeholder="يرجى وصف احتياجاتك بالتفصيل..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="privacy" name="privacy" required>
+                                    <label for="privacy">أوافق على <a href="#" style="color: #667eea; text-decoration: underline;">سياسة الخصوصية</a> وأؤكد أن جميع المعلومات المقدمة صحيحة.</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="submit-btn">إرسال الطلب</button>
+                    </form>
+                    
+                    <div class="success-message" id="success-message">
+                        <div class="success-icon">✓</div>
+                        <h2 class="success-title">تم إرسال طلبك بنجاح!</h2>
+                        <p class="success-text">شكراً لك على تواصلك. سأقوم بمراجعة طلبك والرد عليك في أقرب وقت ممكن عبر البريد الإلكتروني أو الهاتف.</p>
+                        <a href="index.html" class="back-btn">العودة إلى الصفحة الرئيسية</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Form data in three languages
+        const formData = {
+            ar: {
+                title: "طلب استشارة",
+                subtitle: "املأ النموذج أدناه وسأقوم بالرد عليك في أقرب وقت ممكن. جميع المعلومات ستبقى سرية.",
+                labels: {
+                    name: "الاسم الكامل",
+                    email: "البريد الإلكتروني",
+                    phone: "رقم الهاتف",
+                    company: "الشركة/المنظمة",
+                    service: "نوع الخدمة المطلوبة",
+                    message: "تفاصيل الطلب"
+                },
+                placeholders: {
+                    message: "يرجى وصف احتياجاتك بالتفصيل..."
+                },
+                serviceOptions: [
+                    "اختر نوع الخدمة...",
+                    "الاستشارات الاستراتيجية",
+                    "البعثات التجارية الدولية",
+                    "التحليل والبحوث",
+                    "العلامة التجارية والاتصالات",
+                    "دعم الشركات الناشئة والاستثمارات",
+                    "المشاريع التعليمية والثقافية",
+                    "المرافقة الفردية",
+                    "أخرى"
+                ],
+                privacyText: "أوافق على سياسة الخصوصية وأؤكد أن جميع المعلومات المقدمة صحيحة.",
+                submitBtn: "إرسال الطلب",
+                successTitle: "تم إرسال طلبك بنجاح!",
+                successText: "شكراً لك على تواصلك. سأقوم بمراجعة طلبك والرد عليك في أقرب وقت ممكن عبر البريد الإلكتروني أو الهاتف.",
+                backBtn: "العودة إلى الصفحة الرئيسية",
+                errorMessage: "حدث خطأ أثناء إرسال النموذج. يرجى المحاولة مرة أخرى."
+            },
+            en: {
+                title: "Request Consultation",
+                subtitle: "Fill out the form below and I'll get back to you as soon as possible. All information will remain confidential.",
+                labels: {
+                    name: "Full Name",
+                    email: "Email Address",
+                    phone: "Phone Number",
+                    company: "Company/Organization",
+                    service: "Service Type Required",
+                    message: "Request Details"
+                },
+                placeholders: {
+                    message: "Please describe your needs in detail..."
+                },
+                serviceOptions: [
+                    "Select Service Type...",
+                    "Strategic Consulting",
+                    "International Business Missions",
+                    "Analytics and Research",
+                    "Branding and Communications",
+                    "Startup and Investment Support",
+                    "Educational and Cultural Projects",
+                    "Individual Support",
+                    "Other"
+                ],
+                privacyText: "I agree to the privacy policy and confirm that all provided information is accurate.",
+                submitBtn: "Submit Request",
+                successTitle: "Your request has been sent successfully!",
+                successText: "Thank you for reaching out. I'll review your request and get back to you as soon as possible via email or phone.",
+                backBtn: "Back to Home Page",
+                errorMessage: "An error occurred while submitting the form. Please try again."
+            },
+            ru: {
+                title: "Запросить консультацию",
+                subtitle: "Заполните форму ниже, и я свяжусь с вами в ближайшее время. Вся информация останется конфиденциальной.",
+                labels: {
+                    name: "Полное имя",
+                    email: "Адрес электронной почты",
+                    phone: "Номер телефона",
+                    company: "Компания/Организация",
+                    service: "Требуемый тип услуги",
+                    message: "Детали запроса"
+                },
+                placeholders: {
+                    message: "Пожалуйста, подробно опишите свои потребности..."
+                },
+                serviceOptions: [
+                    "Выберите тип услуги...",
+                    "Стратегическое консультирование",
+                    "Международные бизнес-миссии",
+                    "Аналитика и исследования",
+                    "Брендинг и коммуникации",
+                    "Поддержка стартапов и инвестиций",
+                    "Образовательные и культурные проекты",
+                    "Индивидуальное сопровождение",
+                    "Другое"
+                ],
+                privacyText: "Я согласен с политикой конфиденциальности и подтверждаю, что вся предоставленная информация точна.",
+                submitBtn: "Отправить запрос",
+                successTitle: "Ваш запрос успешно отправлен!",
+                successText: "Спасибо за обращение. Я рассмотрю ваш запрос и свяжусь с вами в ближайшее время по электронной почте или телефону.",
+                backBtn: "Вернуться на главную страницу",
+                errorMessage: "Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз."
+            }
+        };
+
+        // DOM Elements
+        const languageButtons = document.querySelectorAll('.lang-btn');
+        const formTitle = document.getElementById('form-title');
+        const formSubtitle = document.getElementById('form-subtitle');
+        const submitBtn = document.getElementById('submit-btn');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        const consultationForm = document.getElementById('consultation-form');
+
+        // Current language
+        let currentLang = 'ar';
+
+        // Update form content based on language
+        function updateFormContent(lang) {
+            const data = formData[lang];
+            
+            // Update header text
+            formTitle.textContent = data.title;
+            formSubtitle.textContent = data.subtitle;
+            submitBtn.textContent = data.submitBtn;
+            
+            // Update form labels
+            document.getElementById('name').previousElementSibling.textContent = data.labels.name + ' *';
+            document.getElementById('email').previousElementSibling.textContent = data.labels.email + ' *';
+            document.getElementById('phone').previousElementSibling.textContent = data.labels.phone;
+            document.getElementById('company').previousElementSibling.textContent = data.labels.company;
+            document.getElementById('service').previousElementSibling.textContent = data.labels.service + ' *';
+            document.getElementById('message').previousElementSibling.textContent = data.labels.message + ' *';
+            
+            // Update textarea placeholder
+            document.getElementById('message').placeholder = data.placeholders.message;
+            
+            // Update service options
+            const serviceSelect = document.getElementById('service');
+            serviceSelect.innerHTML = '';
+            data.serviceOptions.forEach((option, index) => {
+                const optionElement = document.createElement('option');
+                optionElement.value = index === 0 ? '' : ['strategic', 'missions', 'analytics', 'branding', 'startup', 'education', 'individual', 'other'][index - 1];
+                optionElement.textContent = option;
+                if (index === 0) optionElement.disabled = true;
+                serviceSelect.appendChild(optionElement);
+            });
+            
+            // Update privacy text
+            const privacyLabel = document.querySelector('label[for="privacy"]');
+            privacyLabel.innerHTML = data.privacyText.replace('سياسة الخصوصية', '<a href="#" style="color: #667eea; text-decoration: underline;">سياسة الخصوصية</a>');
+            
+            // Update success message
+            document.querySelector('.success-title').textContent = data.successTitle;
+            document.querySelector('.success-text').textContent = data.successText;
+            document.querySelector('.back-btn').textContent = data.backBtn;
+            
+            // Update error message
+            errorMessage.textContent = data.errorMessage;
+        }
+
+        // Handle form submission with Formspree
+        consultationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 
+                                   currentLang === 'en' ? 'Sending...' : 'Отправка...';
+            submitBtn.disabled = true;
+            
+            // Hide any previous error message
+            errorMessage.style.display = 'none';
+            
+            // Send form data to Formspree
+            fetch(consultationForm.action, {
+                method: 'POST',
+                body: new FormData(consultationForm),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success - hide form and show success message
+                    consultationForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                } else {
+                    // Error - show error message
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                // Show error message
+                errorMessage.style.display = 'block';
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // Language switching
+        languageButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                languageButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Get selected language
+                const newLang = button.dataset.lang;
+                
+                // Update body class
+                document.body.className = newLang;
+                
+                // Update current language and re-render form
+                currentLang = newLang;
+                updateFormContent(currentLang);
+            });
+        });
+
+        // Initialize page on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateFormContent(currentLang);
+        });
+    </script>
+</body>
+</html>
