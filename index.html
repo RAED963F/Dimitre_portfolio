@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dmitriy — Analyst | Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #0f1020;
+      --bg-2: #0b0c12;
+      --accent: linear-gradient(135deg,#7b61ff 0%, #ff6b9a 55%, #ffb86b 100%);
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.03);
+      --card-shadow: 0 8px 30px rgba(11,10,20,0.6);
+      --text-muted: rgba(255,255,255,0.65);
+      --highlight: rgba(123,97,255,0.12);
+      --success: #10b981;
+      --error: #ef4444;
+    }
+    /* base */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(123,97,255,0.08), transparent), radial-gradient(800px 400px at 90% 90%, rgba(255,107,154,0.05), transparent),var(--bg-1);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;direction:ltr;text-align:left}
+
+    /* Layout: normal scroll (no snap) */
+    .site{overflow-y:auto}
+    section{padding:48px 6vw;display:flex;align-items:center;min-height:auto}
+
+    /* Top nav - Updated to match consultation page style */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 6vw;
+      gap:20px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-bottom: 1px solid #1e293b;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background:var(--accent);
+      box-shadow:0 6px 18px rgba(123,97,255,0.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#0b0c12
+    }
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{
+      padding:8px 16px;
+      border-radius:20px;
+      text-decoration:none;
+      font-weight:500;
+      color:rgba(255,255,255,0.8);
+      display:inline-flex;
+      align-items:center;
+      background: rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+    nav a.active{
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color:#fff;
+    }
+
+    /* language switcher */
+    .langs{display:flex;gap:8px}
+    .lang-btn{
+      padding:6px 12px;
+      border-radius:15px;
+      cursor:pointer;
+      font-weight:500;
+      color:rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      transition: all 0.3s ease;
+    }
+    .lang-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.2);
+    }
+    .lang-btn.active{
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color:#fff;
+    }
+
+    /* hero */
+    .hero{gap:48px}
+    .hero-grid{display:grid;grid-template-columns:1fr 380px;gap:36px;align-items:start}
+    .intro{max-width:820px}
+    h1{font-size:36px;margin:0 0 10px;font-weight:800;letter-spacing:-0.02em}
+    .roles{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+    .pill{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px 12px;border-radius:12px;font-weight:700;color:var(--text-muted);border:1px solid rgba(255,255,255,0.02)}
+    p.lead{color:var(--text-muted);line-height:1.6}
+
+    .ctas{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:12px;border:0;cursor:pointer;font-weight:700;background:transparent}
+    .btn.primary{
+      background:var(--accent);
+      color:#0b0c12;
+      box-shadow:0 10px 30px rgba(123,97,255,0.12);
+      transition: all 0.3s ease;
+    }
+    .btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(123,97,255,0.2);
+    }
+    .btn.ghost{
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--text-muted);
+      transition: all 0.3s ease;
+    }
+    .btn.ghost:hover {
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    /* profile card */
+    .profile{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;padding:18px;box-shadow:var(--card-shadow);width:100%;max-width:380px}
+    .profile img{width:100%;height:480px;object-fit:cover;border-radius:12px;background:#111}
+    .stats{display:flex;gap:8px;margin-top:12px}
+    .stat{background:var(--glass);padding:8px;border-radius:10px;font-weight:700;color:var(--text-muted);flex:1;text-align:center}
+    .stat .num{display:block;font-size:16px;color:#fff}
+
+    /* section 2 services */
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%}
+    .service{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:14px;box-shadow:var(--card-shadow);min-height:160px}
+    .service h3{margin:0 0 10px}
+    .service p{color:var(--text-muted);line-height:1.5}
+
+    /* gallery row */
+    .gallery{display:flex;gap:14px;margin-top:24px}
+    .thumb{flex:1;border-radius:12px;overflow:hidden;min-height:110px;box-shadow:0 8px 20px rgba(0,0,0,0.6)}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+
+    /* media cards */
+    .media-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
+    .media-card{flex:1;min-width:260px;background:var(--glass);padding:14px;border-radius:12px}
+
+    /* contact / form */
+    .contact{display:flex;gap:30px;align-items:stretch;flex-wrap:wrap}
+    .contact .left{flex:1}
+    form{width:420px;background:var(--glass-2);padding:20px;border-radius:12px;box-shadow:var(--card-shadow)}
+    label{display:block;margin:8px 0 6px;color:var(--text-muted);font-size:13px}
+    input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:#fff}
+    select{background-color:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.18)}
+    textarea{min-height:120px}
+    .submit{margin-top:12px}
+
+    /* footer */
+    footer{padding:40px 6vw;background:transparent;display:block}
+
+    /* form status messages */
+    .form-status {
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+    .form-status.success {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      display: block;
+    }
+    .form-status.error {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--error);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      display: block;
+    }
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr;}
+      .profile img{height:320px}
+      .services{grid-template-columns:1fr}
+      nav{display:none}
+      form{width:100%}
+    }
+
+    /* rtl adjustments */
+    html[dir="rtl"]{direction:rtl}
+    html[dir="rtl"] body{text-align:right}
+    html[dir="rtl"] .brand{flex-direction:row-reverse}
+    html[dir="rtl"] .hero-grid{direction:rtl}
+    html[dir="rtl"] .ctas{justify-content:flex-end}
+    html[dir="rtl"] nav a{direction:rtl}
+    html[dir="rtl"] .stats{direction:rtl}
+
+    /* small interactive helpers */
+    .fade-up{opacity:0;transform:translateY(8px);transition:all .6s cubic-bezier(.2,.9,.3,1)}
+    .in-view{opacity:1;transform:none}
+
+    /* section headings */
+    .section-title{font-family:Roboto Slab,serif;font-size:22px;margin-bottom:12px}
+
+    /* indicator (dots) */
+    .dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:50}
+    .dot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.08);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .dot.active{background:var(--accent);box-shadow:0 6px 18px rgba(123,97,255,0.12)}
+
+    /* small extras to increase clarity */
+    .muted{color:var(--text-muted)}
+    .small{font-size:13px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">DF</div>
+      <div>
+        <div style="font-weight:800" data-i18n="brand.name">Dmitriy Bridge</div>
+        <div style="font-size:12px;color:var(--text-muted)" data-i18n="brand.subtitle">Political & Economic Analyst — Media</div>
+      </div>
+    </div>
+
+    <nav>
+      <a href="index.html" class="nav-link active" data-index="0" data-i18n="nav.home">Home</a>
+      <a href="my_services.html" class="nav-link" data-i18n="nav.services">Services</a>
+      <a href="media.html" class="nav-link" data-i18n="nav.media">Media</a>
+      <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+
+      <div class="langs" aria-label="Language switcher">
+        <div class="lang-btn active" data-lang="en">EN</div>
+        <div class="lang-btn" data-lang="ru">RU</div>
+        <div class="lang-btn" data-lang="ar">AR</div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="dots" aria-hidden>
+    <div class="dot active" data-index="0"></div>
+    <div class="dot" data-index="1"></div>
+    <div class="dot" data-index="2"></div>
+    <div class="dot" data-index="3"></div>
+  </div>
+
+  <main class="site" id="site">
+    <!-- SECTION 1 - HERO -->
+    <section id="s1">
+      <div class="hero-grid">
+        <div class="intro">
+          <div class="roles">
+            <div class="pill" data-i18n="roles.r1">Media Appearances</div>
+            <div class="pill" data-i18n="roles.r2">Advisory to Gov & NGOs</div>
+            <div class="pill" data-i18n="roles.r3">Keynote Speaker</div>
+          </div>
+
+          <h1 class="fade-up in-view" data-i18n="title">Dmitriy Bridge — Analyst & Media</h1>
+          <p class="lead fade-up in-view" data-i18n="lead">Political and economic analyst. I provide briefs, commentary and strategic consulting for media and institutions.</p>
+
+          <div class="ctas">
+            <a href="Request_Consultation.html" class="btn primary" data-i18n="cta.consult">Request Consultation</a>
+            <a href="Бридже-CV.pdf" class="btn ghost" data-i18n="cta.cv">My Resume</a>
+            <a href="my_services.html" class="btn ghost" data-i18n="cta.services">My Services</a>
+            <a href="media.html" class="btn ghost" data-i18n="cta.media">Media Appearances</a>
+          </div>
+
+          <div style="margin-top:18px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap">
+            <div class="pill" data-i18n="pill.exp">+10 years experience</div>
+            <div class="pill" data-i18n="pill.regions">Analysis: Middle East - Europe</div>
+            <div class="pill" data-i18n="pill.langs">Languages: RU / EN / AR</div>
+          </div>
+        </div>
+
+        <aside class="profile">
+          <!-- placeholder image: replace assets/photo1.jpg with your real image -->
+          <img src="photo1.jpg" alt="Profile photo ">
+          <div class="stats">
+            <div class="stat"><span class="small muted" data-i18n="stat1.label">Lectures</span><span class="num" data-i18n="stat1.value">120+</span></div>
+            <div class="stat"><span class="small muted" data-i18n="stat2.label">Institutions</span><span class="num" data-i18n="stat2.value">50+</span></div>
+            <div class="stat"><span class="small muted" data-i18n="stat3.label">Analyses</span><span class="num" data-i18n="stat3.value">300+</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 2 - SERVICES -->
+    <section id="s2" style="background:linear-gradient(180deg,transparent, rgba(255,255,255,0.01))">
+      <div style="width:100%">
+        <div class="section-title" data-i18n="services.title">My Services</div>
+        <div class="services">
+          <div class="service">
+            <h3 data-i18n="svc1.title">Political Analysis</h3>
+            <p data-i18n="svc1.desc">Custom reports for decision-makers on domestic and foreign policy trends, risks and scenarios.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a href="Request_Consultation.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="svc1.btn1">Request Report</a>
+              <a href="media.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="svc1.btn2">Samples</a>
+            </div>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="svc2.title">Media Appearance</h3>
+            <p data-i18n="svc2.desc">TV, radio and podcast commentary, interviews and live analysis.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a href="Request_Consultation.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="svc2.btn1">Request Appearance</a>
+              <a href="media.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="svc2.btn2">Clips</a>
+            </div>
+          </div>
+
+          <div class="service">
+            <h3 data-i18n="svc3.title">Strategic Consulting</h3>
+            <p data-i18n="svc3.desc">Design of communication strategies and crisis management for governments, NGOs and media outlets.</p>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <a href="Request_Consultation.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="svc3.btn1">Request Consulting</a>
+              <!-- <a href="offer.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="svc3.btn2">Service Offer</a>-->
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="thumb"><img src="photo_2.jpg" alt="thumb"></div>
+          <div class="thumb"><img src="photo_3.jpg" alt="thumb"></div>
+          <div class="thumb"><img src="photo_4.jpg" alt="thumb"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 - MEDIA / PORTFOLIO -->
+    <section id="s3">
+      <div style="width:100%">
+        <div class="section-title" data-i18n="media.title">Media & Portfolio</div>
+
+        <div class="media-row">
+          <div class="media-card">
+            <strong data-i18n="media1.title">Panel: The Region's Future</strong>
+            <p class="muted" data-i18n="media1.desc">Talk on economic policies and political stability.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <a href="media.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="media1.btn1">Watch</a>
+              <a href="media.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="media1.btn2">Details</a>
+            </div>
+          </div>
+
+          <div class="media-card">
+            <strong data-i18n="media2.title">Analytical Article — Economic Magazine</strong>
+            <p class="muted" data-i18n="media2.desc">In-depth analyses on supply chains and international pressures.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <a href="БизПлан МЕНАРУС_вер1.pdf" target="_blank" rel="noopener" class="btn ghost" data-i18n="media2.btn1">Read</a>
+              <a href="БизПлан МЕНАРУС_вер1.pdf" target="_blank" rel="noopener" class="btn ghost" data-i18n="media2.btn2">Download PDF</a>
+            </div>
+          </div>
+
+          <div class="media-card">
+            <strong data-i18n="media3.title">Podcast — Interview</strong>
+            <p class="muted" data-i18n="media3.desc">An extended interview on the role of media in shaping public opinion.</p>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <a href="https://www.youtube.com/watch?v=X5bdy0kbtjk" target="_blank" rel="noopener" class="btn ghost" data-i18n="media3.btn1">Listen</a>
+            <!--  <a href="podcast-episode.html" target="_blank" rel="noopener" class="btn ghost" data-i18n="media3.btn2">Episode details</a>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 - CONTACT -->
+    <section id="s4" style="background:linear-gradient(180deg, rgba(11,10,20,0.65), transparent)">
+      <div class="contact">
+        <div class="left">
+          <div class="section-title" data-i18n="contact.title">Contact Me</div>
+          <p class="muted" data-i18n="contact.lead">Send a project brief or desired appearance date and I will reply within 48 hours. You can also request a services offer or full profile.</p>
+
+          <div style="display:flex;gap:12px;margin-top:16px">
+            <a href="Request_Consultation.html" class="btn primary" data-i18n="contact.cta1">Request Consultation</a>
+            <a href="Бридже-CV.pdf" class="btn ghost" data-i18n="contact.cta2">Download CV</a>
+            <a href="contact.html" class="btn ghost" data-i18n="contact.cta3">Available Dates</a>
+          </div>
+        </div>
+
+        <form id="contactForm" action="https://formspree.io/f/xeokqvnp" method="POST">
+          <label for="name" data-i18n="form.nameLabel">Full Name</label>
+          <input id="name" name="name" placeholder="Your full name" required data-i18n-placeholder="form.namePlaceholder">
+
+          <label for="email" data-i18n="form.emailLabel">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required data-i18n-placeholder="form.emailPlaceholder">
+
+          <label for="service" data-i18n="form.serviceLabel">Service Required</label>
+          <select id="service" name="service" aria-label="service required">
+            <option value="Political Analysis" data-i18n="form.opt1">Political Analysis</option>
+            <option value="Media Appearance" data-i18n="form.opt2">Media Appearance</option>
+            <option value="Strategic Consulting" data-i18n="form.opt3">Strategic Consulting</option>
+          </select>
+
+          <label for="msg" data-i18n="form.msgLabel">Message</label>
+          <textarea id="msg" name="message" placeholder="Write a short project brief" data-i18n-placeholder="form.msgPlaceholder"></textarea>
+
+          <div class="submit">
+            <button type="submit" class="btn primary" data-i18n="form.submit">Send</button>
+          </div>
+          
+          <!-- Status message container -->
+          <div id="formStatus" class="form-status"></div>
+        </form>
+      </div>
+    </section>
+    
+    <section> 
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="color:var(--text-muted)" >© 2025 Dmitriy — Analyst. All rights reserved.</div>
+        <div style="display:flex;gap:10px">
+          <a href="#s1" style="color:var(--text-muted);text-decoration:none" data-i18n="footer.vk">vk</a>
+          <a href="#s1" style="color:var(--text-muted);text-decoration:none" data-i18n="footer.ig">instagram</a>
+          <a href="#s1" style="color:var(--text-muted);text-decoration:none" data-i18n="footer.yt">youtube</a>
+        </div>
+      </div>
+    </footer>
+    </section>
+  </main>
+   
+  <script>
+    /***** Navigation + dots (unchanged behavior, preserved structure) *****/
+    const links = document.querySelectorAll('.nav-link');
+    const dots = document.querySelectorAll('.dot');
+    const sections = document.querySelectorAll('section');
+    const site = document.getElementById('site');
+
+    function setActive(idx){
+      links.forEach(a=>a.classList.toggle('active', +a.dataset.index===idx));
+      dots.forEach(d=>d.classList.toggle('active', +d.dataset.index===idx));
+    }
+
+    // Updated navigation to handle external links properly
+    links.forEach(a=>a.addEventListener('click', e=>{
+      const href = a.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const id = href.slice(1);
+        document.getElementById(id).scrollIntoView({behavior:'smooth'});
+      }
+      // If it's an external link (like my_services.html), let it work normally
+    }))
+
+    dots.forEach(d=>d.addEventListener('click', ()=>document.querySelectorAll('section')[+d.dataset.index].scrollIntoView({behavior:'smooth'})) )
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){
+          const idx=[...sections].indexOf(ent.target);
+          setActive(idx);
+          ent.target.querySelectorAll('.fade-up').forEach(el=>el.classList.add('in-view'));
+        }
+      })
+    },{threshold:0.45});
+    sections.forEach(s=>io.observe(s));
+
+    window.addEventListener('keydown', e=>{
+      const idx=[...sections].findIndex(s=>s.getBoundingClientRect().top>=-60 && s.getBoundingClientRect().top<window.innerHeight/2);
+      if(e.key==='ArrowDown'){
+        const next = Math.min(sections.length-1, idx+1); sections[next].scrollIntoView({behavior:'smooth'});
+      } else if(e.key==='ArrowUp'){
+        const prev = Math.max(0, idx-1); sections[prev].scrollIntoView({behavior:'smooth'});
+      }
+    });
+
+    /***** Translations (i18n) *****/
+    const translations = {
+      en: {
+        /* nav + brand */
+        "nav.home":"Home","nav.services":"Services","nav.media":"Media","nav.contact":"Contact",
+        "brand.name":"Dmitriy Bridge","brand.subtitle":"Political & Economic Analyst — Media",
+        /* hero */
+        "roles.r1":"Media Appearances","roles.r2":"Advisory to Gov & NGOs","roles.r3":"Keynote Speaker",
+        "title":"Dmitriy Bridge — Analyst & Media",
+        "lead":"Political and economic analyst. I provide briefs, commentary and strategic consulting for media and institutions.",
+        "cta.consult":"Request Consultation","cta.cv":"My Resume","cta.services":"My Services","cta.media":"Media Appearances",
+        "pill.exp":"+10 years experience","pill.regions":"Analysis: Middle East - Europe","pill.langs":"Languages: RU / EN / AR",
+        "stat1.label":"Lectures","stat1.value":"120+","stat2.label":"Institutions","stat2.value":"50+","stat3.label":"Analyses","stat3.value":"300+",
+        /* services */
+        "services.title":"My Services",
+        "svc1.title":"Political Analysis","svc1.desc":"Custom reports for decision-makers on domestic and foreign policy trends, risks and scenarios.","svc1.btn1":"Request Report","svc1.btn2":"Samples",
+        "svc2.title":"Media Appearance","svc2.desc":"TV, radio and podcast commentary, interviews and live analysis.","svc2.btn1":"Request Appearance","svc2.btn2":"Clips",
+        "svc3.title":"Strategic Consulting","svc3.desc":"Design of communication strategies and crisis management for governments, NGOs and media outlets.","svc3.btn1":"Request Consulting","svc3.btn2":"Service Offer",
+        /* media */
+        "media.title":"Media & Portfolio",
+        "media1.title":"Panel: The Region's Future","media1.desc":"Talk on economic policies and political stability.","media1.btn1":"Watch","media1.btn2":"Details",
+        "media2.title":"Analytical Article — Economic Magazine","media2.desc":"In-depth analyses on supply chains and international pressures.","media2.btn1":"Read","media2.btn2":"Download PDF",
+        "media3.title":"Podcast — Interview","media3.desc":"An extended interview on the role of media in shaping public opinion.","media3.btn1":"Listen","media3.btn2":"Episode details",
+        /* contact */
+        "contact.title":"Contact Me","contact.lead":"Send a project brief or desired appearance date and I will reply within 48 hours. You can also request a services offer or full profile.",
+        "contact.cta1":"Request Consultation","contact.cta2":"Download CV","contact.cta3":"Available Dates",
+        "form.nameLabel":"Full Name","form.namePlaceholder":"Your full name",
+        "form.emailLabel":"Email","form.emailPlaceholder":"you@example.com",
+        "form.serviceLabel":"Service Required","form.opt1":"Political Analysis","form.opt2":"Media Appearance","form.opt3":"Strategic Consulting",
+        "form.msgLabel":"Message","form.msgPlaceholder":"Write a short project brief","form.submit":"Send",
+        /* footer */
+        "footer.copyright":"© 2025 Dmitriy — Analyst. All rights reserved.",
+        "footer.vk":"vk","footer.ig":"instagram","footer.yt":"youtube",
+        /* form status messages */
+        "form.success":"Thank you! Your message has been sent successfully.",
+        "form.error":"Sorry, there was an error sending your message. Please try again later."
+      },
+
+      ru: {
+        "nav.home":"Главная","nav.services":"Услуги","nav.media":"Медиа","nav.contact":"Контакты",
+        "brand.name":"Дмитрий Бридж","brand.subtitle":"Политический и экономический аналитик — Медиа",
+        "roles.r1":"Выступления в СМИ","roles.r2":"Консультации для гос. и НПО","roles.r3":"Ключевой спикер",
+        "title":"Дмитрий Бридж — Аналитик и Медиа",
+        "lead":"Политический и экономический аналитик. Готовлю отчеты, комментарии и стратегические консультации для СМИ и организаций.",
+        "cta.consult":"Заказать консультацию","cta.cv":"Мое резюме","cta.services":"Услуги","cta.media":"Медиа выступления",
+        "pill.exp":"+10 лет опыта","pill.regions":"Анализ: Ближний Восток - Европа","pill.langs":"Языки: RU / EN / AR",
+        "stat1.label":"Лекции","stat1.value":"120+","stat2.label":"Организации","stat2.value":"50+","stat3.label":"Анализы","stat3.value":"300+",
+        "services.title":"Услуги",
+        "svc1.title":"Политический анализ","svc1.desc":"Индивидуальные отчеты для лиц, принимающих решения, по внутренней и внешней политике, рискам и сценариям.","svc1.btn1":"Заказать отчет","svc1.btn2":"Примеры",
+        "svc2.title":"Медиа выступления","svc2.desc":"Комментарии для ТВ, радио и подкастов, интервью и живой анализ.","svc2.btn1":"Заказать выступление","svc2.btn2":"Клипы",
+        "svc3.title":"Стратегические консультации","svc3.desc":"Разработка коммуникационных стратегий и антикризисное управление для правительств, НПО и медиа.","svc3.btn1":"Заказать консультацию","svc3.btn2":"Коммерческое предложение",
+        "media.title":"Медиа и портфолио",
+        "media1.title":"Панель: Будущее региона","media1.desc":"Выступление о влиянии экономической политики на политическую стабильность.","media1.btn1":"Смотреть","media1.btn2":"Детали",
+        "media2.title":"Аналитическая статья — Экономический журнал","media2.desc":"Глубокие анализы по цепочкам поставок и международному давлению.","media2.btn1":"Читать","media2.btn2":"Скачать PDF",
+        "media3.title":"Подкаст — Интервью","media3.desc":"Обширное интервью о роли медиа в формировании общественного мнения.","media3.btn1":"Слушать","media3.btn2":"Детали эпизода",
+        "contact.title":"Связаться со мной","contact.lead":"Отправьте краткое описание проекта или желаемую дату участия — отвечу в течение 48 часов. Также можно запросить предложение услуг или полный профиль.",
+        "contact.cta1":"Заказать консультацию","contact.cta2":"Скачать резюме","contact.cta3":"Доступные даты",
+        "form.nameLabel":"Полное имя","form.namePlaceholder":"Ваше полное имя",
+        "form.emailLabel":"Email","form.emailPlaceholder":"you@example.com",
+        "form.serviceLabel":"Требуемая услуга","form.opt1":"Политический анализ","form.opt2":"Медиа выступление","form.opt3":"Стратегическая консультация",
+        "form.msgLabel":"Сообщение","form.msgPlaceholder":"Краткое описание проекта","form.submit":"Отправить",
+        "footer.copyright":"© 2025 Дмитрий — Аналитик. Все права защищены.",
+        "footer.vk":"vk","footer.ig":"instagram","footer.yt":"youtube",
+        /* form status messages */
+        "form.success":"Спасибо! Ваше сообщение успешно отправлено.",
+        "form.error":"Извините, произошла ошибка при отправке сообщения. Пожалуйста, попробуйте позже."
+      },
+
+      ar: {
+        "nav.home":"الرئيسية","nav.services":"خدمات","nav.media":"الإعلام","nav.contact":"تواصل",
+        "brand.name":"ديميتري بريدج","brand.subtitle":"محلل سياسي واقتصادي — إعلام",
+        "roles.r1":"الظهور الإعلامي","roles.r2":"استشارات للحكومات والمنظمات","roles.r3":"متحدث رئيسي",
+        "title":"ديميتري بريدج — محلل وإعلامي",
+        "lead":"محلل سياسي واقتصادي أقدم تقارير وتعليقات واستشارات استراتيجية لوسائل الإعلام والمؤسسات.",
+        "cta.consult":"اطلب استشارة","cta.cv":"سيرتي الذاتية","cta.services":"خدماتي","cta.media":"الظهور الإعلامي",
+        "pill.exp":"+10 سنوات خبرة","pill.regions":"التحليل: الشرق الأوسط - أوروبا","pill.langs":"اللغات: RU / EN / AR",
+        "stat1.label":"محاضرات","stat1.value":"120+","stat2.label":"مؤسسات","stat2.value":"50+","stat3.label":"تحليلات","stat3.value":"300+",
+        "services.title":"خدماتي",
+        "svc1.title":"تحليل سياسي","svc1.desc":"تقارير مخصصة لصناع القرار عن توجهات السياسة الداخلية والخارجية، تقييم المخاطر والسيناريوهات.","svc1.btn1":"اطلب تقرير","svc1.btn2":"نماذج",
+        "svc2.title":"الظهور الإعلامي","svc2.desc":"تعليقات وتغطية تلفزيونية وإذاعية وبودكاست، مقابلات وتحليل مباشر.","svc2.btn1":"اطلب ظهور","svc2.btn2":"مقاطع",
+        "svc3.title":"استشارات استراتيجية","svc3.desc":"تصميم استراتيجيات اتصال وإدارة أزمات للمؤسسات والحكومات ووسائل الإعلام.","svc3.btn1":"اطلب استشارة","svc3.btn2":"عرض الخدمات",
+        "media.title":"الظهور في الإعلام — المحفظة",
+        "media1.title":"ندوة: مستقبل المنطقة","media1.desc":"مداخلة حول تأثيرات السياسات الاقتصادية على الاستقرار السياسي.","media1.btn1":"مشاهدة","media1.btn2":"تفاصيل",
+        "media2.title":"مقال تحليلي — مجلة اقتصادية","media2.desc":"نشر تحليلات معمقة حول سلاسل الإمداد والضغوط الدولية.","media2.btn1":"قراءة","media2.btn2":"تحميل PDF",
+        "media3.title":"بودكاست — لقاء","media3.desc":"مقابلة مطولة عن دور الإعلام في تشكيل الرأي العام.","media3.btn1":"استمع","media3.btn2":"تفاصيل الحلقة",
+        "contact.title":"تواصل معي","contact.lead":"أرسل لنا ملخص المشروع أو موعد الظهور المطلوب وسأرد خلال 48 ساعة. يمكنك أيضاً طلب عرض خدمات أو ملف التعريف الكامل.",
+        "contact.cta1":"اطلب استشارة","contact.cta2":"تحميل سيرتي","contact.cta3":"مواعيد متاحة",
+        "form.nameLabel":"الاسم الكامل","form.namePlaceholder":"اكتب اسمك الكامل",
+        "form.emailLabel":"الايميل","form.emailPlaceholder":"you@example.com",
+        "form.serviceLabel":"الخدمة المطلوبة","form.opt1":"تحليل سياسي","form.opt2":"ظهور اعلامي","form.opt3":"استشارة استراتيجية",
+        "form.msgLabel":"نص الرسالة","form.msgPlaceholder":"اكتب نبذة قصيرة عن المشروع","form.submit":"أرسل",
+        "footer.copyright":"© 2025 ديميتري — محلل. جميع الحقوق محفوظة.",
+        "footer.vk":"vk","footer.ig":"instagram","footer.yt":"youtube",
+        /* form status messages */
+        "form.success":"شكراً لك! تم إرسال رسالتك بنجاح.",
+        "form.error":"عذراً، حدث خطأ أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى لاحقاً."
+      }
+    };
+
+    // helper: apply a language (updates innerText, placeholders, options and dir/lang)
+    function applyLanguage(lang){
+      const map = translations[lang];
+      if(!map) return;
+      // set html attributes
+      document.documentElement.lang = (lang === 'ar') ? 'ar' : (lang === 'ru' ? 'ru' : 'en');
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+      // update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key = el.dataset.i18n;
+        if(map[key] !== undefined){
+          el.textContent = map[key];
+        }
+      });
+
+      // placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        const key = el.dataset.i18nPlaceholder;
+        if(map[key] !== undefined){
+          el.setAttribute('placeholder', map[key]);
+        }
+      });
+
+      // option elements inside selects
+      document.querySelectorAll('option[data-i18n]').forEach(opt=>{
+        const key = opt.dataset.i18n;
+        if(map[key] !== undefined){
+          opt.textContent = map[key];
+        }
+      });
+
+      // also update options without explicit data-i18n (the service select in this file uses options with data-i18n above)
+      // highlight active language button
+      document.querySelectorAll('.lang-btn').forEach(b=>{
+        b.classList.toggle('active', b.dataset.lang === lang);
+      });
+    }
+
+    // attach events to language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ applyLanguage(btn.dataset.lang); });
+    });
+
+    // set default language to English on load
+    applyLanguage('en');
+
+    // Formspree form handler
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const submitButton = form.querySelector('button[type="submit"]');
+      const statusElement = document.getElementById('formStatus');
+      const currentLang = document.documentElement.lang || 'en';
+      
+      // Show loading state
+      const originalText = submitButton.textContent;
+      submitButton.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 
+                                currentLang === 'ru' ? 'Отправка...' : 'Sending...';
+      submitButton.disabled = true;
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Success
+          statusElement.textContent = translations[currentLang]["form.success"];
+          statusElement.className = 'form-status success';
+          form.reset();
+        } else {
+          // Error
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        // Network error or other issue
+        statusElement.textContent = translations[currentLang]["form.error"];
+        statusElement.className = 'form-status error';
+      } finally {
+        // Restore button state
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+        
+        // Hide status message after 5 seconds
+        setTimeout(() => {
+          statusElement.className = 'form-status';
+        }, 5000);
+      }
+    });
+
+    // ensure translations apply to buttons that may be created or changed dynamically later
+    // (not needed here, but leave a safe API)
+    window.setLanguage = applyLanguage;
+  </script>
+    
+</body>
+</html>
