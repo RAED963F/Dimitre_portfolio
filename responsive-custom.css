@@ -1,0 +1,77 @@
+/* === قواعد مرنة أساسية === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* الصور والفيديو */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* الحاويات الأساسية */
+.container, .section, .content-wrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* الأعمدة / البطاقات */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.col {
+  flex: 1 1 calc(33.333% - 20px);
+}
+
+/* ===== استجابات الشاشات المتوسطة ===== */
+@media (max-width: 1024px) {
+  .col {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+/* ===== استجابات الموبايل ===== */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  .col {
+    flex: 1 1 100%;
+  }
+  h1, h2, h3, h4 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+/* ===== شاشات أصغر جدًا ===== */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+  .container {
+    width: 95%;
+  }
+}

@@ -7,13 +7,67 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
-  <link rel="stylesheet" href="responsive.css">
 
-
+  
   <style>
-    
+    /* ==============================
+   Responsive Design
+============================== */
+
+/* Default styles (desktop) */
+body {
+  font-size: 16px;
+}
+
+/* Large tablets / small laptops */
+@media (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+  header, nav, main, footer {
+    padding: 20px;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Tablets / large phones */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  header, nav, main, footer {
+    padding: 15px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  header, nav, main, footer {
+    padding: 10px;
+  }
+  nav ul {
+    gap: 5px;
+  }
+  .container {
+    padding: 0 5px;
+  }
+}
+
     :root{
       --bg-1: #0f1020;
       --bg-2: #0b0c12;
@@ -34,19 +88,21 @@
     .site{overflow-y:auto}
     section{padding:48px 6vw;display:flex;align-items:center;min-height:auto}
 
-    /* Top nav - Updated to match consultation page style */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 6vw;
-      gap:20px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-bottom: 1px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+    /* ===== HEADER الجديد ===== */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 5%;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        border-bottom: 1px solid #1e293b;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        min-height: 60px;
+        box-sizing: border-box;
     }
+    
     .brand{display:flex;align-items:center;gap:14px}
     .logo{
       width:44px;
@@ -60,25 +116,78 @@
       font-weight:700;
       color:#0b0c12
     }
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{
-      padding:8px 16px;
-      border-radius:20px;
-      text-decoration:none;
-      font-weight:500;
-      color:rgba(255,255,255,0.8);
-      display:inline-flex;
-      align-items:center;
-      background: rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
+
+    /* القائمة الأساسية - للديسكتوب فقط */
+    .desktop-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
     }
-    nav a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
+
+    .desktop-nav a {
+        padding: 8px 16px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 500;
+        color: rgba(255,255,255,0.8);
+        background: rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
     }
-    nav a.active{
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      color:#fff;
+
+    .desktop-nav a:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+
+    .desktop-nav a.active {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: #fff;
+    }
+
+    /* زر القائمة للموبايل */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    /* القائمة المنزلقة للموبايل */
+    .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1e293b;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        flex-direction: column;
+        gap: 10px;
+        z-index: 999;
+    }
+
+    .mobile-nav a {
+        padding: 12px 16px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0.1);
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+        background: rgba(255,255,255,0.2);
     }
 
     /* language switcher */
@@ -99,6 +208,46 @@
     .lang-btn.active{
       background: linear-gradient(45deg, #667eea, #764ba2);
       color:#fff;
+    }
+
+    /* ===== MEDIA QUERIES الجديدة ===== */
+    /* للديسكتوب */
+    @media (min-width: 769px) {
+        .desktop-nav { display: flex; }
+        .mobile-menu-btn { display: none; }
+        .mobile-nav { display: none !important; }
+    }
+
+    /* للموبايل */
+    @media (max-width: 768px) {
+        .desktop-nav { display: none; }
+        .mobile-menu-btn { display: block; }
+        
+        .brand h1 {
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+        
+        .logo {
+            width: 36px;
+            height: 36px;
+            font-size: 14px;
+        }
+    }
+
+    /* للشاشات الصغيرة جداً */
+    @media (max-width: 360px) {
+        header {
+            padding: 10px 15px;
+        }
+        
+        .brand h1 {
+            font-size: 14px;
+            max-width: 120px;
+        }
     }
 
     /* hero */
@@ -196,7 +345,6 @@
       .hero-grid{grid-template-columns:1fr;}
       .profile img{height:320px}
       .services{grid-template-columns:1fr}
-      nav{display:none}
       form{width:100%}
     }
 
@@ -206,7 +354,7 @@
     html[dir="rtl"] .brand{flex-direction:row-reverse}
     html[dir="rtl"] .hero-grid{direction:rtl}
     html[dir="rtl"] .ctas{justify-content:flex-end}
-    html[dir="rtl"] nav a{direction:rtl}
+    html[dir="rtl"] .desktop-nav a{direction:rtl}
     html[dir="rtl"] .stats{direction:rtl}
 
     /* small interactive helpers */
@@ -224,6 +372,8 @@
     /* small extras to increase clarity */
     .muted{color:var(--text-muted)}
     .small{font-size:13px}
+
+    
   </style>
 </head>
 <body>
@@ -236,13 +386,30 @@
       </div>
     </div>
 
-    <nav>
+    <!-- زر القائمة للموبايل -->
+    <button class="mobile-menu-btn">☰</button>
+    
+    <!-- القائمة الأساسية (تظهر للديسكتوب فقط) -->
+    <nav class="desktop-nav">
       <a href="index.html" class="nav-link active" data-index="0" data-i18n="nav.home">Home</a>
       <a href="my_services.html" class="nav-link" data-i18n="nav.services">Services</a>
       <a href="media.html" class="nav-link" data-i18n="nav.media">Media</a>
       <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
 
       <div class="langs" aria-label="Language switcher">
+        <div class="lang-btn active" data-lang="en">EN</div>
+        <div class="lang-btn" data-lang="ru">RU</div>
+        <div class="lang-btn" data-lang="ar">AR</div>
+      </div>
+    </nav>
+    
+    <!-- القائمة المنزلقة للموبايل -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="nav-link active" data-i18n="nav.home">Home</a>
+      <a href="my_services.html" class="nav-link" data-i18n="nav.services">Services</a>
+      <a href="media.html" class="nav-link" data-i18n="nav.media">Media</a>
+      <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+      <div class="langs" style="justify-content: center; margin-top: 10px;">
         <div class="lang-btn active" data-lang="en">EN</div>
         <div class="lang-btn" data-lang="ru">RU</div>
         <div class="lang-btn" data-lang="ar">AR</div>
@@ -473,6 +640,39 @@
         const prev = Math.max(0, idx-1); sections[prev].scrollIntoView({behavior:'smooth'});
       }
     });
+
+    /***** Mobile Menu Functionality *****/
+    function initMobileMenu() {
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileNav = document.querySelector('.mobile-nav');
+        
+        if (mobileMenuBtn && mobileNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isOpen = mobileNav.style.display === 'flex';
+                mobileNav.style.display = isOpen ? 'none' : 'flex';
+                mobileMenuBtn.textContent = isOpen ? '☰' : '✕';
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.style.display = 'none';
+                    mobileMenuBtn.textContent = '☰';
+                });
+            });
+            
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', (e) => {
+                if (!mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileNav.style.display = 'none';
+                    mobileMenuBtn.textContent = '☰';
+                }
+            });
+        }
+    }
+
+    // تشغيل عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
 
     /***** Translations (i18n) *****/
     const translations = {

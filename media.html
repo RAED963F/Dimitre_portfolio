@@ -7,7 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  
 
   <style>
     :root{
@@ -28,19 +29,21 @@
     .site{overflow-y:auto}
     section{padding:48px 6vw;display:flex;align-items:center;min-height:auto}
 
-    /* Top nav - Updated to match consultation page style */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 6vw;
-      gap:20px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-bottom: 1px solid #1e293b;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+    /* ===== HEADER الجديد ===== */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 5%;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        border-bottom: 1px solid #1e293b;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        min-height: 60px;
+        box-sizing: border-box;
     }
+
     .brand{display:flex;align-items:center;gap:14px}
     .logo{
       width:44px;
@@ -54,25 +57,78 @@
       font-weight:700;
       color:#0b0c12
     }
-    nav{display:flex;gap:12px;align-items:center}
-    nav a{
-      padding:8px 16px;
-      border-radius:20px;
-      text-decoration:none;
-      font-weight:500;
-      color:rgba(255,255,255,0.8);
-      display:inline-flex;
-      align-items:center;
-      background: rgba(255,255,255,0.1);
-      transition: all 0.3s ease;
+
+    /* القائمة الأساسية - للديسكتوب فقط */
+    .desktop-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
     }
-    nav a:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
+
+    .desktop-nav a {
+        padding: 8px 16px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 500;
+        color: rgba(255,255,255,0.8);
+        background: rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
     }
-    nav a.active{
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      color:#fff;
+
+    .desktop-nav a:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+
+    .desktop-nav a.active {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: #fff;
+    }
+
+    /* زر القائمة للموبايل */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    /* القائمة المنزلقة للموبايل */
+    .mobile-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1e293b;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        flex-direction: column;
+        gap: 10px;
+        z-index: 999;
+    }
+
+    .mobile-nav a {
+        padding: 12px 16px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0.1);
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+        background: rgba(255,255,255,0.2);
     }
 
     /* language switcher */
@@ -93,6 +149,46 @@
     .lang-btn.active{
       background: linear-gradient(45deg, #667eea, #764ba2);
       color:#fff;
+    }
+
+    /* ===== MEDIA QUERIES الجديدة ===== */
+    /* للديسكتوب */
+    @media (min-width: 769px) {
+        .desktop-nav { display: flex; }
+        .mobile-menu-btn { display: none; }
+        .mobile-nav { display: none !important; }
+    }
+
+    /* للموبايل */
+    @media (max-width: 768px) {
+        .desktop-nav { display: none; }
+        .mobile-menu-btn { display: block; }
+        
+        .brand h1 {
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+        
+        .logo {
+            width: 36px;
+            height: 36px;
+            font-size: 14px;
+        }
+    }
+
+    /* للشاشات الصغيرة جداً */
+    @media (max-width: 360px) {
+        header {
+            padding: 10px 15px;
+        }
+        
+        .brand h1 {
+            font-size: 14px;
+            max-width: 120px;
+        }
     }
 
     /* Media Hero */
@@ -368,10 +464,6 @@
       .media-hero h1 {
         font-size: 28px;
       }
-      
-      nav {
-        display: none;
-      }
     }
 
     @media (max-width: 768px) {
@@ -461,13 +553,30 @@
       </div>
     </div>
 
-    <nav>
+    <!-- زر القائمة للموبايل -->
+    <button class="mobile-menu-btn">☰</button>
+    
+    <!-- القائمة الأساسية (تظهر للديسكتوب فقط) -->
+    <nav class="desktop-nav">
       <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
       <a href="my_services.html" class="nav-link" data-i18n="nav.services">Services</a>
       <a href="media.html" class="nav-link active" data-i18n="nav.media">Media</a>
       <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
 
       <div class="langs" aria-label="Language switcher">
+        <div class="lang-btn active" data-lang="en">EN</div>
+        <div class="lang-btn" data-lang="ru">RU</div>
+        <div class="lang-btn" data-lang="ar">AR</div>
+      </div>
+    </nav>
+    
+    <!-- القائمة المنزلقة للموبايل -->
+    <nav class="mobile-nav">
+      <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
+      <a href="my_services.html" class="nav-link" data-i18n="nav.services">Services</a>
+      <a href="media.html" class="nav-link active" data-i18n="nav.media">Media</a>
+      <a href="contact.html" class="nav-link" data-i18n="nav.contact">Contact</a>
+      <div class="langs" style="justify-content: center; margin-top: 10px;">
         <div class="lang-btn active" data-lang="en">EN</div>
         <div class="lang-btn" data-lang="ru">RU</div>
         <div class="lang-btn" data-lang="ar">AR</div>
@@ -606,6 +715,39 @@
   </footer>
 
   <script>
+    /***** Mobile Menu Functionality *****/
+    function initMobileMenu() {
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileNav = document.querySelector('.mobile-nav');
+        
+        if (mobileMenuBtn && mobileNav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isOpen = mobileNav.style.display === 'flex';
+                mobileNav.style.display = isOpen ? 'none' : 'flex';
+                mobileMenuBtn.textContent = isOpen ? '☰' : '✕';
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.style.display = 'none';
+                    mobileMenuBtn.textContent = '☰';
+                });
+            });
+            
+            // إغلاق القائمة عند النقر خارجها
+            document.addEventListener('click', (e) => {
+                if (!mobileNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileNav.style.display = 'none';
+                    mobileMenuBtn.textContent = '☰';
+                }
+            });
+        }
+    }
+
+    // تشغيل عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+
     // Media content data
     const mediaData = {
       en: [
